@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
  * @author alexandrelerario
  */
 @Entity
-@Table(name = "user")
+@Table(name = "swuser")
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
@@ -37,7 +37,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+   // @Basic(optional = true)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
@@ -56,8 +56,7 @@ public class User implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "password")
     private String password;
-    @Basic(optional = false)
-    @NotNull
+    @Basic(optional = true)
     @Lob
     @Column(name = "photo")
     private byte[] photo;

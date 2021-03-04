@@ -96,7 +96,7 @@
                             <value>${project.build.directory}/${project.build.finalName}</value>
                         </option>
                     </commandLineOptions>
-                    <contextRoot>/</contextRoot>
+                    <contextRoot>/pdweb</contextRoot>
                 </configuration>
             </plugin>
         </plugins>

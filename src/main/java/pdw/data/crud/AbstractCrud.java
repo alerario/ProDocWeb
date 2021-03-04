@@ -25,6 +25,8 @@ public abstract class AbstractCrud<T> {
             getEntityManager().getTransaction().commit();
             return null;
         } catch (Exception e) {
+            System.out.println("======= ====");
+            System.out.println(e.getMessage());
             return e;
         }
     }

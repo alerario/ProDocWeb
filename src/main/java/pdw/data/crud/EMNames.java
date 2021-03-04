@@ -22,7 +22,7 @@ public class EMNames implements java.io.Serializable {
         Map<String, String> properties = new HashMap<>();
         
         if (heroku_db == null) { //caso nao tenhamos a variavel de ambiente       
-            properties.put("javax.persistence.jdbc.url", "jdbc:postgresql://localhost:5432/teste");
+            properties.put("javax.persistence.jdbc.url", "jdbc:postgresql://localhost:5432/pdwdb");
             properties.put("javax.persistence.jdbc.user", "postgres");
             properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
             properties.put("javax.persistence.jdbc.password", "postgres");
