@@ -8,6 +8,7 @@ package pwd.jsf;
 import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import pdw.data.crud.CrudUser;
 import pdw.data.model.User;
 
@@ -25,6 +26,7 @@ public class JsfUser {
     public JsfUser() {
     }
     
+   
     private String nome;
     private String email;
     private String password;
@@ -42,7 +44,9 @@ public class JsfUser {
            
                cruduser.persist(user);
         }
-        return "index.xhtml";
+        
+        return "index";
+        
     }
     
     //verificamos se existe usuarios, o primeiro e o admin

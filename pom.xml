@@ -76,6 +76,12 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.19.jre7</version>
         </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>
