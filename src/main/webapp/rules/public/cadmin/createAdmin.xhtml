@@ -14,7 +14,7 @@
         <h:form>
             <div class="p-field">
                 <p:staticMessage severity="info" summary="Atenção" detail="Cadastre o administrador do sistema" style="width: 100%" rendered="#{!jsfUser.admin}"/>
-                <p:staticMessage severity="warn" summary="Atenção" detail="Administrador do sistema já cadastrado" style="width: 60%" rendered="#{jsfUser.admin}"/>
+                <p:staticMessage severity="warn" summary="Atenção" detail="Administrador do sistema já cadastrado"  rendered="#{jsfUser.admin}"/>
                 <p:commandButton rendered="#{jsfUser.admin}" styleClass="ui-button-secondary"  value="Voltar" action="index"/>
             
             </div>
