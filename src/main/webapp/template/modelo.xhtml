@@ -22,6 +22,10 @@
                     <p:growl id="messages"/>
 
                     <p:menubar>
+                         
+                        <p:submenu  icon="pi pi-user" styleClass="p-mr-2" />
+                        
+                   
                         <p:submenu label="Organization" icon="pi pi-fw pi-globe">
                             <p:menuitem value="Create New" icon="pi pi-fw pi-plus" url="#"/>
                             <p:menuitem value="Join" icon="pi pi-fw pi-reply" url="#"/>
@@ -88,7 +92,7 @@
                                         cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                                 </p:dialog>
                                 &nbsp;&nbsp;
-                                <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+                                <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" action="#{jsfAuth.logout()}" />
                             </div>
                         </f:facet>
 

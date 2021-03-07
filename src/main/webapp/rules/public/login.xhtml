@@ -18,12 +18,12 @@
                         <p:outputLabel value="Efetue Login" />
                     </f:facet>
                     <p:outputLabel value="E-mail" />
-                    <p:inputText />                
+                    <p:inputText value="#{jsfAuth.login}" required="true" requiredMessage="Informe o login (seu e-mail)"/>                
                     <p:outputLabel value="Senha" />
-                    <p:password  toggleMask="true"/>
+                    <p:password  toggleMask="true" value="#{jsfAuth.password}" required="true" requiredMessage="Informe sua senha"/>
                     <f:facet name="footer">
                         <div align="center">
-                            <p:commandButton value="Acessar"  icon="pi pi-sign-in" iconPos="right" action="mainmenu"/>
+                            <p:commandButton value="Acessar"  icon="pi pi-sign-in" iconPos="right" action="#{jsfAuth.authenticate()}"/>
                         </div>
                     </f:facet>
                 </p:panelGrid>
