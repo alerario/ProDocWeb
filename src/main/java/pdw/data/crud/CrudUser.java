@@ -5,12 +5,8 @@
  */
 package pdw.data.crud;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import javax.xml.bind.DatatypeConverter;
 import pdw.data.model.User;
 
 /**
@@ -37,7 +33,7 @@ public class CrudUser extends AbstractCrud<pdw.data.model.User> {
     public User getAuth(String user_email, String password) {
         try {
             User user = (User) getEntityManager().createNamedQuery("User.findByEmail").setParameter("email", user_email).getSingleResult();
-            String md5pass = getMd5(password);
+            String md5pass = new pdw.util.Util().getMd5(password);
             if (user.getPassword().toUpperCase().equals(md5pass)) {
                 return user;
             } else {
@@ -50,22 +46,19 @@ public class CrudUser extends AbstractCrud<pdw.data.model.User> {
         return null;
     }
 
-    private String getMd5(String pass) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(pass.getBytes());
-            byte[] digest = md.digest();
-            String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
-
-            return myHash;
-// m.update(pass.getBytes(), 0, pass.length());
-            // return Arrays.toString(m.digest());
-        } catch (NoSuchAlgorithmException e) {
-            return null;
-        }
-    }
-    /*
-     algumas chaves
+    //sobrescrever persist para gravar a md5 da senha
+    @Override
+     public Exception persist(User entity) {
+         entity.setPassword(new pdw.util.Util().getMd5(entity.getPassword()));
+         return super.persist(entity);
+     }
+   
+     /*
+     algumas chaves para testar
+    
+    a
+    0cc175b9c0f1b6a831c399e269772661
+    
      abc123
 e99a18c428cb38d5f260853678922e03
 
@@ -76,5 +69,4 @@ Starwar5
 7b03c175eb89d1a2640e0ebef6ea68a9
      
      */
-
 }
