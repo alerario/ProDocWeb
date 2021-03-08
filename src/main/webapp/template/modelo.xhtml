@@ -17,15 +17,24 @@
 
         <div id="top" class="top">
             <ui:insert name="top">
-
                 <h:form>
                     <p:growl id="messages"/>
 
-                    <p:menubar>
-                         
-                        <p:submenu  icon="pi pi-user" styleClass="p-mr-2" />
-                        
-                   
+                    <!-- componente para confirmar logout no botao e no menu -->
+                    <p:confirmDialog widgetVar="confirm" message="Confirm Logout">
+                         <p:commandButton id="canbt" value="Cancel" onclick="PF('confirm').hide();" /> 
+                        <p:commandButton value="Confirm" oncomplete="PF('confirm').hide();"  action="#{jsfAuth.logout()}" />
+                       
+                    </p:confirmDialog>
+
+                    <p:menubar>                     
+                        <p:submenu  icon="pi pi-user" styleClass="p-mr-2" >
+                            <p:menuitem value="Account" icon="pi pi-fw pi-id-card" url="#" />
+                            <p:menuitem value="Change password" icon="pi pi-fw pi-key" url="#"/>
+                            <p:divider />                       
+                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-out"  onclick="PF('confirm').show();"/>
+                        </p:submenu> 
+
                         <p:submenu label="Organization" icon="pi pi-fw pi-globe">
                             <p:menuitem value="Create New" icon="pi pi-fw pi-plus" url="#"/>
                             <p:menuitem value="Join" icon="pi pi-fw pi-reply" url="#"/>
@@ -55,14 +64,12 @@
                             <p:menuitem value="Templates" url="#" icon="pi pi-cog"/>
                             <p:menuitem value="Guidances" url="#" icon="pi pi-cog"/>
                             <p:menuitem value="Flow" url="#" icon="pi pi-cog"/>
-
                         </p:submenu>
 
                         <p:submenu label="Build Doc" icon="pi pi-fw pi-user">
                             <p:menuitem value="View" icon="pi pi-fw pi-search" url="#"/>
                             <p:menuitem value="Export PDF" icon="pi pi-fw pi-file-pdf" url="#"/>
                             <p:menuitem value="Export ZIP" icon="pi pi-fw pi-download" url="#"/>
-
                             <p:divider />
                             <p:menuitem value="New - invite" icon="pi pi-fw pi-user-plus" url="#"/>
                             <p:menuitem value="New - invite" icon="pi pi-fw pi-user-plus" url="#"/>
@@ -75,24 +82,24 @@
                             </p:submenu>
                         </p:submenu>
 
-                       
+
 
                         <f:facet name="options">
                             <div class="ui-input-icon-left p-mr-2">
 
                                 &nbsp;&nbsp;
-                                <p:button id="selp" value="Selecione um processo" styleClass="ui-button-warning ui-button-flat" />
+                                <p:button id="selp" value="Selecione uma organizacao" styleClass="ui-button-warning ui-button-flat" />
                                 <p:tooltip for="selp" value="Selecione uma organizacao e processo para editar" position="right"/>
 
                                 <p:button  value="Nome do processo" styleClass="ui-button-success ui-button-flat" onclick="PF('dlg1').show()"/>
                                 <p:dialog header="Header" widgetVar="dlg1" minHeight="40" width="350" showEffect="fade">
-                                    <p class="p-m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    <p class="p-m-0">Detalhes do processo selecionado  === Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
                                         cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                                 </p:dialog>
                                 &nbsp;&nbsp;
-                                <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" action="#{jsfAuth.logout()}" />
+                                <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" onclick="PF('confirm').show();" />                            
                             </div>
                         </f:facet>
 

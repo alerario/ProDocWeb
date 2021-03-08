@@ -51,6 +51,10 @@ public class JsfAuth implements Serializable {
         return "index";
     }
     
+    public User getUser(){
+        return user;
+    }
+    
     public boolean getAuth() {
         return auth;
     }
