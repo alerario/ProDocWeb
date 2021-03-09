@@ -8,7 +8,6 @@ package pdw.jsf;
 import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import pdw.data.crud.CrudUser;
 import pdw.data.model.User;
 

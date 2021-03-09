@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../../../template/modelo.xhtml">
+
+            <ui:define name="content">
+                <br/>
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <div align="center" >
+                    <h:form>
+
+
+                        <p:dataTable value="#{jsfOrganization.all}" var="orga" >
+                            <p:column>
+                                <p:outputLabel value="#{orga.id}"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{orga.name}"/>
+                            </p:column><p:column>
+                                <p:outputLabel value="#{orga.description}"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{orga.admin.name}"/>
+                            </p:column>
+                        </p:dataTable>
+
+
+                    </h:form>
+                </div>
+
+            </ui:define>
+
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

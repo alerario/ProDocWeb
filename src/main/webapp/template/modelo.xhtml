@@ -36,7 +36,9 @@
                         </p:submenu> 
 
                         <p:submenu label="Organization" icon="pi pi-fw pi-globe">
-                            <p:menuitem value="Create New" icon="pi pi-fw pi-plus" url="#"/>
+                            <p:menuitem value="Create New" icon="pi pi-fw pi-plus" url="#{application.contextPath}/faces/rules/private/crudOrganization/cOrganization.xhtml"/>
+                            <p:menuitem value="List" icon="pi pi-fw pi-list" url="#{application.contextPath}/faces/rules/private/crudOrganization/rOrganization.xhtml"/>
+                          
                             <p:menuitem value="Join" icon="pi pi-fw pi-reply" url="#"/>
                             <p:submenu label="Users" icon="pi pi-fw pi-users">
                                 <p:menuitem value="List" icon="pi pi-fw pi-list" url="#"/>

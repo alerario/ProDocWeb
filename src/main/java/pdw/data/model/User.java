@@ -6,18 +6,25 @@
 package pdw.data.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,12 +41,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "User.findByEnable", query = "SELECT u FROM User u WHERE u.enable = :enable")})
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   // @Basic(optional = true)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
@@ -53,10 +54,9 @@ public class User implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
-    //@Size(min = 1, max = 25)
+    @Size(min = 1, max = 33)
     @Column(name = "password")
     private String password;
-    @Basic(optional = true)
     @Lob
     @Column(name = "photo")
     private byte[] photo;
@@ -64,6 +64,20 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "enable")
     private boolean enable;
+    @JoinTable(name = "swuserorganization", joinColumns = {
+        @JoinColumn(name = "user", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "organization", referencedColumnName = "id")})
+    @ManyToMany
+    private Collection<Organization> organizationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
+    private Collection<Organization> organizationCollection1;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // @Basic(optional = true)
+    @Column(name = "id")
+    private Integer id;
 
     public User() {
     }
@@ -87,6 +101,28 @@ public class User implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof User)) {
+            return false;
+        }
+        User other = (User) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public String toString() {
+        return "pdw.data.model.User[ id=" + id + " ]";
     }
 
     public String getName() {
@@ -129,29 +165,22 @@ public class User implements Serializable {
         this.enable = enable;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    @XmlTransient
+    public Collection<Organization> getOrganizationCollection() {
+        return organizationCollection;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setOrganizationCollection(Collection<Organization> organizationCollection) {
+        this.organizationCollection = organizationCollection;
     }
 
-    @Override
-    public String toString() {
-        return "pdw.data.model.User[ id=" + id + " ]";
+    @XmlTransient
+    public Collection<Organization> getOrganizationCollection1() {
+        return organizationCollection1;
+    }
+
+    public void setOrganizationCollection1(Collection<Organization> organizationCollection1) {
+        this.organizationCollection1 = organizationCollection1;
     }
     
 }
