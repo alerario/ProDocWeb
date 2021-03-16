@@ -17,34 +17,40 @@
                 </p:messages>
                 <div align="center" >
                     <h:form id="form">
-                            <p:panelGrid columns="2" id='formulario'>
-                                <f:facet name="header">
-                                    <p:outputLabel value="Cadastrar organização" />
-                                </f:facet>
+                        <!--campo necessario para operacao de update-->
+                        <h:inputHidden value = "#{jsfOrganization.id}" id = "id" />
+                        <p:panelGrid columns="2" id='formulario'>
+                            <f:facet name="header">
+                                <p:outputLabel value="Cadastrar organização" />
+                            </f:facet>
 
-                                <p:outputLabel value="ID" />
-                                <p:outputLabel value="#{jsfOrganization.id}" />
-                                <p:outputLabel value="Nome" />
-                                <p:inputText  id="nome" value="#{jsfOrganization.nome}"  required="true" requiredMessage="A organização precisa de um nome" />
+                            <p:outputLabel value="ID" />
+                            <p:outputLabel value="#{jsfOrganization.id}" />
 
-                                <p:outputLabel value="descricao" />
+                            <p:outputLabel value="Nome" />
+                            <p:inputText  id="nome" value="#{jsfOrganization.nome}"  required="true" requiredMessage="A organização precisa de um nome" />
 
-                                <p:panelGrid columns="1" id='formulario2'>
-                                    <p:inputTextarea value="#{jsfOrganization.descricao}" rows="5" cols="30" counter="display" maxlength="500"
-                                                     counterTemplate="{0} characters remaining." autoResize="false"/>
-                                    <h:outputText id="display" class="p-d-block" />
-                                </p:panelGrid>
+                            <p:outputLabel value="descricao" />
 
-
-                                <f:facet name="footer">
-                                    <p:commandButton value="Add new" style="margin-right: .5rem;" icon="pi pi-fw pi-plus" action="#{jsfOrganization.persist()}" />
-                                    <p:commandButton id="Clear" value="Clear" style="margin-right: .5rem;" update="formulario" process="@this" styleClass="p-mr-2 ui-button-outlined" icon="pi pi-fw pi pi-times" >
-                                        <p:resetInput target="formulario"/>
-                                    </p:commandButton>
-
-                                </f:facet>
+                            <p:panelGrid columns="1" id='formulario2'>
+                                <p:inputTextarea value="#{jsfOrganization.descricao}" rows="5" cols="30" counter="display" maxlength="500"
+                                                 counterTemplate="{0} characters remaining." autoResize="false"/>
+                                <h:outputText id="display" class="p-d-block" />
                             </p:panelGrid>
-                      
+
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Save" style="margin-right: .5rem;" icon="pi pi-fw pi-save" action="#{jsfOrganization.persist()}" >
+                                    <f:setPropertyActionListener value="#{jsfOrganization.id}" target="#{jsfOrganization.id}"/>
+                                </p:commandButton>
+
+                                <p:commandButton id="Clear" value="Clear" style="margin-right: .5rem;" update="formulario" process="@this" styleClass="p-mr-2 ui-button-outlined" icon="pi pi-fw pi pi-times" >
+                                    <p:resetInput target="formulario"/>
+                                </p:commandButton>
+
+                            </f:facet>
+                        </p:panelGrid>
+
                     </h:form>
 
                 </div>

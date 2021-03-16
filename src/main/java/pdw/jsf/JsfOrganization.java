@@ -5,7 +5,6 @@
  */
 package pdw.jsf;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.inject.Named;
@@ -14,7 +13,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import org.primefaces.PrimeFaces;
+import org.primefaces.model.FilterMeta;
+import pdw.data.crud.CrudOrganization;
 import pdw.data.model.Organization;
 
 /**
@@ -34,11 +34,19 @@ public class JsfOrganization {
     private int id;
     private String nome;
     private String descricao;
+    
+     private List<FilterMeta> filterBy;
+
 
     @Inject
     private JsfAuth jsfAuth;
 
+    
     public String persist() {
+        if(this.id!=0){
+            //se ha id entao e um merge
+            return merge();
+        }
         Organization orgt = new Organization();
         orgt.setName(nome);
         orgt.setDescription(descricao);
@@ -56,8 +64,46 @@ public class JsfOrganization {
         return null;
     }
 
-    public Collection<Organization> getAll() {
+    public String remove(Organization orgt) {
+        if (new pdw.data.crud.CrudOrganization().remove(orgt) == null) {
+            //redireciona para a mesma pagina, reseta parametros e mantem a mensagem
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Sucesso"));
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            UIViewRoot view = FacesContext.getCurrentInstance().getViewRoot();
+            return view.getViewId() + "?faces-redirect=true";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir dados", "Error"));
+        }
+        return null;
+    }
+    
+    public String merge() {
+        Organization orgt = new CrudOrganization().find(id);
+        orgt.setName(nome);
+        orgt.setDescription(descricao);
+        orgt.setAdmin(jsfAuth.getUser());
+        if (new pdw.data.crud.CrudOrganization().merge  (orgt) == null) {
+            //redireciona para a mesma pagina, reseta parametros e mantem a mensagem
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Sucesso"));
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            UIViewRoot view = FacesContext.getCurrentInstance().getViewRoot();
+            return view.getViewId() + "?faces-redirect=true";
 
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao inserir dados", "Error"));
+        }
+        return null;
+    }
+    
+    public String edit(Organization orgt){
+        this.nome=orgt.getName();
+        this.descricao=orgt.getDescription();
+        this.id = orgt.getId();
+        return "cOrganization.xhtml";
+    }
+   
+    
+    public Collection<Organization> getAll() {
         return new pdw.data.crud.CrudOrganization().getAll();
     }
 
