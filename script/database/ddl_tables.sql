@@ -8,7 +8,7 @@ CREATE TABLE public.swuser
     enable boolean NOT NULL DEFAULT false,
     CONSTRAINT user_pk PRIMARY KEY (id),
     CONSTRAINT user_email_key UNIQUE (email)
-)
+);
 
 CREATE TABLE public.sworganization
 (
