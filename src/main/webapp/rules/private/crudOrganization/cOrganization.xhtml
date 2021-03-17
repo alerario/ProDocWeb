@@ -44,23 +44,16 @@
                                     <f:setPropertyActionListener value="#{jsfOrganization.id}" target="#{jsfOrganization.id}"/>
                                 </p:commandButton>
 
-                                <p:commandButton id="Clear" value="Clear" style="margin-right: .5rem;" update="formulario" process="@this" styleClass="p-mr-2 ui-button-outlined" icon="pi pi-fw pi pi-times" >
+                                <p:commandButton id="Clear" value="Clear and Add New" style="margin-right: .5rem;" update="formulario" process="@this" styleClass="p-mr-2 ui-button-outlined" icon="pi pi-fw pi pi-plus" >
                                     <p:resetInput target="formulario"/>
                                 </p:commandButton>
 
                             </f:facet>
                         </p:panelGrid>
-
                     </h:form>
-
                 </div>
 
             </ui:define>
-
-
-
-
         </ui:composition>
-
     </body>
 </html>
