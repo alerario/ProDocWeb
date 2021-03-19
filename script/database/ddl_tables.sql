@@ -16,7 +16,8 @@ CREATE TABLE public.sworganization
     admin integer NOT NULL,
     name character varying(80) COLLATE pg_catalog."default" NOT NULL,
     description character varying(500) COLLATE pg_catalog."default",
-    CONSTRAINT organization_pk PRIMARY KEY (id),
+   created timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,    
+CONSTRAINT organization_pk PRIMARY KEY (id),
     CONSTRAINT organization_fk0 FOREIGN KEY (admin)
         REFERENCES public.swuser (id) MATCH SIMPLE
         ON UPDATE NO ACTION
