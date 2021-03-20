@@ -35,6 +35,4 @@ CREATE TABLE public.swprocess (
 	created timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated TIMESTAMP NOT NULL,
 	CONSTRAINT swprocess_pk PRIMARY KEY (id)
-) WITH (
-  OIDS=FALSE
 );
