@@ -17,10 +17,24 @@ CREATE TABLE public.sworganization
     admin integer NOT NULL,
     name character varying(80) COLLATE pg_catalog."default" NOT NULL,
     description character varying(500) COLLATE pg_catalog."default",
-   created timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,    
-CONSTRAINT organization_pk PRIMARY KEY (id),
+    created timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT organization_pk PRIMARY KEY (id),
     CONSTRAINT organization_fk0 FOREIGN KEY (admin)
         REFERENCES public.swuser (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
+
+CREATE TABLE public.swprocess (
+	id SERIAL NOT NULL,
+	name character varying(50),
+	description character varying(200),
+	images bytea,
+	modified DATE,
+	organization integer NOT NULL,
+	created timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	update TIMESTAMP NOT NULL,
+	CONSTRAINT swprocess_pk PRIMARY KEY (id)
+) WITH (
+  OIDS=FALSE
+);
