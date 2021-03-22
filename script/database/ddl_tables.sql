@@ -36,3 +36,18 @@ CREATE TABLE public.swprocess (
 	updated TIMESTAMP NOT NULL,
 	CONSTRAINT swprocess_pk PRIMARY KEY (id)
 );
+
+CREATE TABLE public.swactivity (
+	"id" serial NOT NULL,
+	"name" character varying(50),
+	"description" character varying(400),
+	"swphase" integer,
+	"mandatory" BOOLEAN NOT NULL DEFAULT 'false',
+	"swguidance" integer,
+	"swrole" integer,
+	"order" integer NOT NULL UNIQUE DEFAULT 'nextval(order)',
+	"start" bool NOT NULL,
+	CONSTRAINT "swactivity_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
