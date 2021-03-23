@@ -36,3 +36,7 @@ CREATE TABLE public.swprocess (
 	updated TIMESTAMP NOT NULL,
 	CONSTRAINT swprocess_pk PRIMARY KEY (id)
 );
+create table public.swguidance(id serial primary key,
+			        name varchar(50),
+			        description varchar (400),
+			        guidefile bytea);
