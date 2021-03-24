@@ -58,7 +58,7 @@ CREATE TABLE public.swactivflow (
 );
 
 CREATE TABLE public.swgateway( 
-        id bigint NOT NULL,
+        id serial NOT NULL,
         annotation varchar(40),
         type character,
         CONSTRAINT swgateway_pk PRIMARY KEY (id) 
