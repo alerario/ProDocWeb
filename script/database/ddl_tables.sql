@@ -39,7 +39,9 @@ CREATE TABLE public.swprocess (
 create table public.swguidance(id serial primary key,
 			        name varchar(50),
 			        description varchar (400),
-			        guidefile bytea);
+			        guidefile bytea
+);
+
 
 CREATE TABLE public.swphase (
 	"id" serial PRIMARY KEY NOT NULL,
@@ -48,3 +50,10 @@ CREATE TABLE public.swphase (
 	"swprocess" integer,
 	"order" integer NOT NULL UNIQUE
 	);
+
+CREATE TABLE public.swactivflow (
+        swactivity integer NOT NULL,
+        nextactivity integer NOT NULL,
+        CONSTRAINT swactivflow_pk PRIMARY KEY (swactivity , nextactivity )
+);
+
