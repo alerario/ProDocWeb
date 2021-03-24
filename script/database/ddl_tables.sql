@@ -40,3 +40,11 @@ create table public.swguidance(id serial primary key,
 			        name varchar(50),
 			        description varchar (400),
 			        guidefile bytea);
+
+CREATE TABLE public.swphase (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" character varying(50),
+	"description" character varying(400),
+	"swprocess" integer,
+	"order" integer NOT NULL UNIQUE
+	);
