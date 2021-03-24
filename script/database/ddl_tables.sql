@@ -57,3 +57,10 @@ CREATE TABLE public.swactivflow (
         CONSTRAINT swactivflow_pk PRIMARY KEY (swactivity , nextactivity )
 );
 
+CREATE TABLE public.swgateway( 
+        id bigint NOT NULL,
+        annotation varchar(40),
+        type character,
+        CONSTRAINT swgateway_pk PRIMARY KEY (id) 
+);
+
