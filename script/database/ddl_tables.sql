@@ -51,3 +51,31 @@ CREATE TABLE public.swactivity (
 ) WITH (
   OIDS=FALSE
 );
+
+create table public.swguidance(id serial primary key,
+			        name varchar(50),
+			        description varchar (400),
+			        guidefile bytea
+);
+
+
+CREATE TABLE public.swphase (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" character varying(50),
+	"description" character varying(400),
+	"swprocess" integer,
+	"order" integer NOT NULL UNIQUE
+	);
+
+CREATE TABLE public.swactivflow (
+        swactivity integer NOT NULL,
+        nextactivity integer NOT NULL,
+        CONSTRAINT swactivflow_pk PRIMARY KEY (swactivity , nextactivity )
+);
+
+CREATE TABLE public.swgateway( 
+        id serial NOT NULL,
+        annotation varchar(40),
+        type character,
+        CONSTRAINT swgateway_pk PRIMARY KEY (id) 
+);
