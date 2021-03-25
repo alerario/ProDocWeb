@@ -45,11 +45,9 @@ CREATE TABLE public.swactivity (
 	"mandatory" BOOLEAN NOT NULL DEFAULT 'false',
 	"swguidance" integer,
 	"swrole" integer,
-	"order" integer NOT NULL UNIQUE DEFAULT 'nextval(order)',
+	"order" integer NOT NULL UNIQUE,
 	"start" bool NOT NULL,
 	CONSTRAINT "swactivity_pk" PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
 );
 
 create table public.swguidance(id serial primary key,
