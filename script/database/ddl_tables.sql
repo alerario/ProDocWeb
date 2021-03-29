@@ -77,3 +77,12 @@ CREATE TABLE public.swgateway(
         type character,
         CONSTRAINT swgateway_pk PRIMARY KEY (id) 
 );
+
+CREATE TABLE public.swimages (
+	id serial NOT NULL,
+	swprocess integer NOT NULL,
+	image bytea NOT NULL,
+	name character varying(40) NOT NULL,
+	description character varying(200) NOT NULL,
+	CONSTRAINT swimages_pk PRIMARY KEY (id)
+);
