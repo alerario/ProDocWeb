@@ -86,3 +86,12 @@ CREATE TABLE public.swimages (
 	description character varying(200) NOT NULL,
 	CONSTRAINT swimages_pk PRIMARY KEY (id)
 );
+
+CREATE TABLE public.swrole (
+    id serial NOT NULL,
+    name character varying(100) NOT NULL,
+    description character varying(100) NOT NULL,
+    swprocess integer NOT NULL,
+    CONSTRAINT swrole_pk PRIMARY KEY (id),
+    CONSTRAINT swrole_fk0 FOREIGN KEY (swprocess) REFERENCES public.swprocess(id)
+);
