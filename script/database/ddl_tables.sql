@@ -45,7 +45,7 @@ CREATE TABLE public.swactivity (
 	mandatory BOOLEAN NOT NULL DEFAULT false,
 	swguidance integer,
 	swrole integer,
-	order integer NOT NULL UNIQUE DEFAULT nextval(order),
+	execorder integer NOT NULL UNIQUE,
 	start bool NOT NULL,
 	CONSTRAINT swactivity_pk PRIMARY KEY (id)
 );
@@ -62,7 +62,7 @@ CREATE TABLE public.swphase (
 	name character varying(50),
 	description character varying(400),
 	swprocess integer,
-	order integer NOT NULL UNIQUE
+	execorder integer NOT NULL UNIQUE
 	);
 
 CREATE TABLE public.swactivflow (
