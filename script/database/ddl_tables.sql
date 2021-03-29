@@ -38,18 +38,16 @@ CREATE TABLE public.swprocess (
 );
 
 CREATE TABLE public.swactivity (
-	"id" serial NOT NULL,
-	"name" character varying(50),
-	"description" character varying(400),
-	"swphase" integer,
-	"mandatory" BOOLEAN NOT NULL DEFAULT 'false',
-	"swguidance" integer,
-	"swrole" integer,
-	"order" integer NOT NULL UNIQUE DEFAULT 'nextval(order)',
-	"start" bool NOT NULL,
-	CONSTRAINT "swactivity_pk" PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
+	id serial NOT NULL,
+	name character varying(50),
+	description character varying(400),
+	swphase integer,
+	mandatory BOOLEAN NOT NULL DEFAULT false,
+	swguidance integer,
+	swrole integer,
+	order integer NOT NULL UNIQUE DEFAULT nextval(order),
+	start bool NOT NULL,
+	CONSTRAINT swactivity_pk PRIMARY KEY (id)
 );
 
 create table public.swguidance(id serial primary key,
@@ -60,11 +58,11 @@ create table public.swguidance(id serial primary key,
 
 
 CREATE TABLE public.swphase (
-	"id" serial PRIMARY KEY NOT NULL,
-	"name" character varying(50),
-	"description" character varying(400),
-	"swprocess" integer,
-	"order" integer NOT NULL UNIQUE
+	id serial PRIMARY KEY NOT NULL,
+	name character varying(50),
+	description character varying(400),
+	swprocess integer,
+	order integer NOT NULL UNIQUE
 	);
 
 CREATE TABLE public.swactivflow (
