@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import pdw.data.model.Organization;
 import pdw.data.model.User;
 
 /**
@@ -31,6 +32,7 @@ public class JsfAuth implements Serializable {
     private boolean auth = false;
     private String login;
     private String password;
+    private Organization selectedOrganization; //utilize esta classe para manter a organizacao e o processo selecionado
 
     public String authenticate() {
         user = new pdw.data.crud.CrudUser().getAuth(login, password);
@@ -72,4 +74,12 @@ public class JsfAuth implements Serializable {
         this.password = password;
     }
 
+    public Organization getSelectedOrganization() {
+        return selectedOrganization;
+    }
+
+    public void setSelectedOrganization(Organization selectedOrganization) {
+        this.selectedOrganization = selectedOrganization;
+    }
+ 
 }

@@ -49,13 +49,13 @@ public class JsfUser {
     }
     
     //verificamos se existe usuarios, o primeiro e o admin
-    public boolean isAdmin(){
-        Collection c =new CrudUser().getAll();
-        if(c==null||c.isEmpty()){
-            return false;
-        }
-        return true;
-    }
+//    public boolean isAdmin(){
+//        Collection c =new CrudUser().getAll();
+//        if(c==null||c.isEmpty()){
+//            return false;
+//        }
+//        return true;
+//    }
 
     public String getNome() {
         return nome;
