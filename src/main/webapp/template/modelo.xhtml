@@ -28,11 +28,15 @@
                     </p:confirmDialog>
 
                     <p:menubar>                     
-                        <p:submenu  icon="pi pi-user" styleClass="p-mr-2" >
-                            <p:menuitem value="Account" icon="pi pi-fw pi-id-card" url="#" />
+                        <p:submenu  icon="pi pi-user" styleClass="p-mr-2" label="Me" >
+                            <p:menuitem value="Account" icon="pi pi-fw pi-user-edit" url="#" />
                             <p:menuitem value="Change password" icon="pi pi-fw pi-key" url="#"/>
                             <p:divider />                       
                             <p:menuitem value="Logout" icon="pi pi-fw pi-sign-out"  onclick="PF('confirm').show();"/>
+                        </p:submenu> 
+                        
+                        <p:submenu  icon="pi pi-users" styleClass="p-mr-2" label="Users" rendered="#{jsfApp.user_id==jsfAuth.user.id}">
+                            <p:menuitem value="Enable/Disable" icon="pi pi-fw pi-user-plus" url="#" />        
                         </p:submenu> 
 
                         <p:submenu label="Organization" icon="pi pi-fw pi-globe">
