@@ -8,6 +8,7 @@ package pdw.jsf;
 import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import pdw.data.crud.CrudUser;
 import pdw.data.model.User;
 
@@ -25,6 +26,8 @@ public class JsfUser {
     public JsfUser() {
     }
     
+    @Inject
+    private JsfApp jsfApp;
    
     private String nome;
     private String email;
@@ -40,8 +43,8 @@ public class JsfUser {
         Collection c = cruduser.getAll();
         if(c==null||c.isEmpty()){
             //nao ha nenhum usuario cadastrado entao cadastramos o admin
-           
                cruduser.persist(user);
+               jsfApp.verify(); //verifica a existencia de um admin
         }
         
         return "index";
