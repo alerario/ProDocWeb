@@ -5,8 +5,6 @@
  */
 package pdw.jsf;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
@@ -35,26 +33,24 @@ public class JsfApp {
         List<User> c = new CrudUser().getAll();
         if (c == null || c.isEmpty()) {
             this.hasadmin = false;
-            user_id=0;
+            admin_id=0;
            // return false;
         } else {
             this.hasadmin = true;
-            user_id = c.get(0).getId();
+            admin_id = c.get(0).getId();
             //return true;
         }
 
     }
 
     private boolean hasadmin; //ha adm?
-    private int user_id;
+    private int admin_id;
 
     public boolean isHasadmin() {
         return hasadmin;
     }
 
-    
-
-    public int getUser_id() {
-        return user_id;
+    public int getAdmin_id() {
+        return admin_id;
     }
 }

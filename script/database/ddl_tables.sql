@@ -4,7 +4,7 @@ CREATE TABLE public.swuser
     name character varying(60) COLLATE pg_catalog."default" NOT NULL,
     email character varying(100) COLLATE pg_catalog."default" NOT NULL,
     password character varying(33) COLLATE pg_catalog."default" NOT NULL,
-    created  timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created  timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     photo bytea,
     enable boolean NOT NULL DEFAULT false,
 	obs character varying(200),

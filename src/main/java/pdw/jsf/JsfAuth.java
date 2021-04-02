@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import pdw.data.model.Organization;
 import pdw.data.model.User;
 
@@ -34,26 +35,35 @@ public class JsfAuth implements Serializable {
     private String password;
     private Organization selectedOrganization; //utilize esta classe para manter a organizacao e o processo selecionado
 
+    @Inject
+    private JsfApp jsfApp;
+    
     public String authenticate() {
+        jsfApp.verify(); //verifica se ha um admim
         user = new pdw.data.crud.CrudUser().getAuth(login, password);
         auth = user != null;
         if (auth) {
-            return "mainmenu";
+            if (user.getEnable()) {
+                return "mainmenu";
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario precisa ser ativado.", "Error"));
+                return null;
+            }
         }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login ou senha inválidos.", "Error"));
         return null;
     }
 
-    public String logout(){
-        auth=false;
-        user=null;
+    public String logout() {
+        auth = false;
+        user = null;
         return "index";
     }
-    
-    public User getUser(){
+
+    public User getUser() {
         return user;
     }
-    
+
     public boolean getAuth() {
         return auth;
     }
@@ -81,5 +91,5 @@ public class JsfAuth implements Serializable {
     public void setSelectedOrganization(Organization selectedOrganization) {
         this.selectedOrganization = selectedOrganization;
     }
- 
+
 }
