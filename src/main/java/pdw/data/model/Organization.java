@@ -59,8 +59,8 @@ public class Organization implements Serializable {
     @Size(max = 500)
     @Column(name = "description")
     private String description;
-    @Basic(optional = false)
-    @NotNull
+    @Basic(optional = true)
+    //@NotNull
     @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;

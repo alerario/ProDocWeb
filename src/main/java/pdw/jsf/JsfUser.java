@@ -58,14 +58,7 @@ public class JsfUser {
     public List<User> getAll() {
         return new CrudUser().getAll();
     }
-    //verificamos se existe usuarios, o primeiro e o admin
-//    public boolean isAdmin(){
-//        Collection c =new CrudUser().getAll();
-//        if(c==null||c.isEmpty()){
-//            return false;
-//        }
-//        return true;
-//    }
+   
 
     public void turnActive(User user) {
         if (jsfApp.getAdmin_id() != user.getId()) {

@@ -41,6 +41,7 @@ public class JsfOrganization {
     @Inject
     private JsfAuth jsfAuth;
 
+    @Inject JsfApp jsfApp;
     
     public String persist() {
         if(this.id!=0){

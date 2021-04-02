@@ -5,7 +5,10 @@
  */
 package pdw.data.crud;
 
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import pdw.data.model.User;
@@ -55,6 +58,13 @@ public class CrudUser extends AbstractCrud<pdw.data.model.User> {
          return super.persist(entity);
      }
    
+     //retornar o usuario administrador
+     public User getAdmin(){
+        List<User> users = new CrudUser().getAll();
+        User admin = users.stream().min(Comparator.comparing(User::getId)).orElse(null);
+        return admin;
+    }
+    
      /*
      algumas chaves para testar
     

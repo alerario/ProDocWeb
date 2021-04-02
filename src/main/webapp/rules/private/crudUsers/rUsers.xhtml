@@ -60,13 +60,10 @@
                             </p:column>
 
                             <p:column headerText="Active" sortBy="#{user.enable}" filterBy="#{user.enable}">
-                                <p:selectBooleanCheckbox value="#{user.enable}"  >
+                                <p:selectBooleanCheckbox value="#{user.enable}" >
                                     <p:ajax update="msg" listener="#{jsfUser.turnActive(user)}"/>
                                 </p:selectBooleanCheckbox>
-                                
-                               
                             </p:column>
-
 
                         </p:dataTable>
 
