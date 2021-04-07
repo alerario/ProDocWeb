@@ -5,7 +5,6 @@
  */
 package pdw.jsf;
 
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;

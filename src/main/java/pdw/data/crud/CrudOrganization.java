@@ -9,7 +9,6 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import pdw.data.model.Organization;
-import pdw.data.model.User;
 
 /**
  *

@@ -8,7 +8,6 @@ package pdw.data.crud;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import pdw.data.model.User;
