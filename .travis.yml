@@ -2,7 +2,7 @@ services:
 - postgresql
 before_script:
 - psql -c 'create database pdwdb;' -U postgres
-- psql -U postgres -d pdwdb -f /script/database/ddl_tables.sql
+- psql -U postgres -d pdwdb -f script/database/ddl_tables.sql
 #- psql -U postgres -d teste -f script/database/insert_records.sql
 language: java
 jdk:
