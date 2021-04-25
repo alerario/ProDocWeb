@@ -5,9 +5,10 @@
  */
 package pdw.data.crud;
 
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import pdw.data.model.User;
+import pdw.data.model.Organization;
 
 /**
  *
@@ -29,4 +30,10 @@ public class CrudOrganization extends AbstractCrud<pdw.data.model.Organization> 
         return em;
     }
 
+    @Override
+    public Exception persist(Organization entity) {
+         entity.setCreated(new Date());
+         return super.persist(entity);
+     }
+  
 }

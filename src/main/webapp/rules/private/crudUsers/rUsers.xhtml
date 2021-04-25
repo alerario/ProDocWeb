@@ -15,10 +15,11 @@
                 <p:messages id="messages" showDetail="true" closable="true">
                     <p:autoUpdate/>
                 </p:messages>
+                   <p:growl id="msg"/>
                 <div align="center" >
                     <h:form>
 
-                        <p:dataTable var="orga" value="#{jsfOrganization.all}" widgetVar="customersTable"
+                        <p:dataTable var="user" value="#{jsfUser.all}" widgetVar="customersTable"
                                      emptyMessage="No organization found with given criteria"
                                      filteredValue=""
                                      rows="10"
@@ -28,40 +29,40 @@
 
                             <f:facet name="header">
                                 <div class="p-d-flex p-ai-center p-jc-between">
-                                    <span>List of Organizations</span>
+                                    <span>List of Users</span>
                                     <div align="right">
                                         <p:inputText id="globalFilter" onkeyup="PF('customersTable').filter()" style="width:10rem" placeholder="Enter keyword" />
                                     </div>
                                 </div>
                             </f:facet>
 
-                            <p:column  headerText="ID" sortBy="#{orga.id}" filterBy="#{orga.id}">
-                                <p:outputLabel value="#{orga.id}" />
+                            <p:column  headerText="ID" sortBy="#{user.id}" filterBy="#{orga.id}">
+                                <p:outputLabel value="#{user.id}" />
                             </p:column>
 
-                            <p:column  headerText="Name" sortBy="#{orga.name}" filterBy="#{orga.name}">
-                                <p:outputLabel value="#{orga.name}"/>
+                            <p:column  headerText="Name" sortBy="#{user.name}" filterBy="#{user.name}">
+                                <p:outputLabel value="#{user.name}"/>
                             </p:column>
 
-                            <p:column headerText="Description">
-                                <p:outputLabel value="#{orga.description}"/>
+                            <p:column  headerText="E-Mail" sortBy="#{user.email}" filterBy="#{user.email}">
+                                <p:outputLabel value="#{user.email}"/>
                             </p:column>
 
-                            <p:column  headerText="Owner">
-                                <p:outputLabel value="#{orga.admin.name}"/>
+                            <p:column  headerText="Created" sortBy="#{user.created}" filterBy="#{user.created}">
+                                <p:outputLabel value="#{user.created}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy - HH:mm" timeZone="GMT-03:00" />
+                                </p:outputLabel>
+                            
                             </p:column>
 
-                            <p:column  headerText="Edit" width="50px">
-                                <p:commandButton icon="pi pi-pencil" 
-                                                 styleClass="edit-button ui-button-success"
-                                                 action="#{jsfOrganization.edit(orga)}"/>
+                            <p:column  headerText="Obs" sortBy="#{user.obs}" filterBy="#{user.obs}">
+                                <p:outputLabel value="#{user.obs}"/>
                             </p:column>
 
-                            <p:column  headerText="Delete" width="50px">
-                                <p:commandButton class="ui-button-warning" icon="pi pi-trash" 
-                                                 action="#{jsfOrganization.remove(orga)}">
-                                    <p:confirm type="popup" header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle"/>
-                                </p:commandButton>
+                            <p:column headerText="Active" sortBy="#{user.enable}" filterBy="#{user.enable}">
+                                <p:selectBooleanCheckbox value="#{user.enable}" >
+                                    <p:ajax update="msg" listener="#{jsfUser.turnActive(user)}"/>
+                                </p:selectBooleanCheckbox>
                             </p:column>
 
                         </p:dataTable>

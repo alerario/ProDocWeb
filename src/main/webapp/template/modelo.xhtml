@@ -28,18 +28,22 @@
                     </p:confirmDialog>
 
                     <p:menubar>                     
-                        <p:submenu  icon="pi pi-user" styleClass="p-mr-2" >
-                            <p:menuitem value="Account" icon="pi pi-fw pi-id-card" url="#" />
+                        <p:submenu  icon="pi pi-user" styleClass="p-mr-2" label="Me" >
+                            <p:menuitem value="Account" icon="pi pi-fw pi-user-edit" url="#" />
                             <p:menuitem value="Change password" icon="pi pi-fw pi-key" url="#"/>
                             <p:divider />                       
                             <p:menuitem value="Logout" icon="pi pi-fw pi-sign-out"  onclick="PF('confirm').show();"/>
+                        </p:submenu> 
+                        
+                        <p:submenu  icon="pi pi-users" styleClass="p-mr-2" label="Users" rendered="#{jsfApp.admin_id==jsfAuth.user.id}">
+                            <p:menuitem value="List" icon="pi pi-fw pi-list" url="#{application.contextPath}/faces/rules/private/crudUsers/rUsers.xhtml" />        
                         </p:submenu> 
 
                         <p:submenu label="Organization" icon="pi pi-fw pi-globe">
                             <p:menuitem value="Create New" icon="pi pi-fw pi-plus" url="#{application.contextPath}/faces/rules/private/crudOrganization/cOrganization.xhtml"/>
                             <p:menuitem value="List" icon="pi pi-fw pi-list" url="#{application.contextPath}/faces/rules/private/crudOrganization/rOrganization.xhtml"/>
                           
-                            <p:menuitem value="Join" icon="pi pi-fw pi-reply" url="#"/>
+                            <p:menuitem value="Join" icon="pi pi-fw pi-reply" url="#" rendered="false"/>
                             <p:submenu label="Users" icon="pi pi-fw pi-users">
                                 <p:menuitem value="List" icon="pi pi-fw pi-list" url="#"/>
                                 <p:menuitem value="Invite" icon="pi pi-fw pi-id-card" url="#"/>

@@ -5,6 +5,9 @@
  */
 package pdw.data.crud;
 
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import pdw.data.model.User;
@@ -33,7 +36,7 @@ public class CrudUser extends AbstractCrud<pdw.data.model.User> {
     public User getAuth(String user_email, String password) {
         try {
             User user = (User) getEntityManager().createNamedQuery("User.findByEmail").setParameter("email", user_email).getSingleResult();
-            String md5pass = new pdw.util.Util().getMd5(password);
+            String md5pass = new pdw.util.Util().getMd5(password).toUpperCase();
             if (user.getPassword().toUpperCase().equals(md5pass)) {
                 return user;
             } else {
@@ -50,9 +53,17 @@ public class CrudUser extends AbstractCrud<pdw.data.model.User> {
     @Override
      public Exception persist(User entity) {
          entity.setPassword(new pdw.util.Util().getMd5(entity.getPassword()));
+         entity.setCreated(new Date());
          return super.persist(entity);
      }
    
+     //retornar o usuario administrador
+     public User getAdmin(){
+        List<User> users = new CrudUser().getAll();
+        User admin = users.stream().min(Comparator.comparing(User::getId)).orElse(null);
+        return admin;
+    }
+    
      /*
      algumas chaves para testar
     
