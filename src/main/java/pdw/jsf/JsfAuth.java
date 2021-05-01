@@ -86,11 +86,12 @@ public class JsfAuth implements Serializable {
     }
 
     public Organization getSelectedOrganization() {
-        // return para o metodo funcional
+        // return para o metodo em producao
         return selectedOrganization;
 
         //return para o metodo em desenvolvimento
-       // return new pdw.data.crud.CrudOrganization().find(1);
+        //verifique qual o id da organizacao no banco de dados;
+        // return new pdw.data.crud.CrudOrganization().find(1);
     }
 
     public void setSelectedOrganization(Organization selectedOrganization) {
@@ -99,10 +100,11 @@ public class JsfAuth implements Serializable {
 
     public pdw.data.model.Process getSelectedProcess() {
         //return para o software em desenvolvimento
-      //  return new pdw.data.crud.CrudProcess().find(3);
+        // verifique qual o id do processo no banco de dados
+        //  return new pdw.data.crud.CrudProcess().find(3); 
 
-//return para o sw em producao
-       return selectedProcess;
+        //return para o sw em producao
+        return selectedProcess;
     }
 
     public void setSelectedProcess(pdw.data.model.Process selectedProcess) {
