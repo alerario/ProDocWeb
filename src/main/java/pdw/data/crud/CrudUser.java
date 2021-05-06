@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import static org.eclipse.persistence.expressions.ExpressionOperator.toUpperCase;
 import pdw.data.model.User;
 
 /**
@@ -31,6 +32,36 @@ public class CrudUser extends AbstractCrud<pdw.data.model.User> {
         }
         return em;
     }
+    
+
+    
+      public int getIdByEmail(String user_email) { // 21.04.2021
+        try {
+            User user = (User) getEntityManager().createNamedQuery("User.findByEmail").setParameter("email", user_email).getSingleResult();
+                return user.getId();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+        
+     }
+      
+    
+      
+     public String geraChave(String email){
+       
+         String chave;
+         String codigo;
+        
+         if(getIdByEmail(email) == -1){
+             return "";
+         }
+         User user = (User) getEntityManager().createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
+        
+         codigo =  new pdw.util.Util().getMd5(user.getPassword()+user.getId()).toUpperCase();
+         chave = codigo;
+         return chave;
+     }
 
     // os metodos abaixo sao opcionais
     public User getAuth(String user_email, String password) {
@@ -48,6 +79,9 @@ public class CrudUser extends AbstractCrud<pdw.data.model.User> {
         }
         return null;
     }
+    
+
+
 
     //sobrescrever persist para gravar a md5 da senha
     @Override

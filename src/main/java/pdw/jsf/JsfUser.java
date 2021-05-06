@@ -12,9 +12,10 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import pdw.data.crud.CrudUser;
+import javax.inject.Inject;;
 import pdw.data.model.User;
+import pdw.data.crud.CrudUser;
+
 
 /**
  *
@@ -36,6 +37,7 @@ public class JsfUser {
     private String nome;
     private String email;
     private String password;
+    private String chave;
 
     public String createAdmin() {
         User user = new User();
@@ -54,6 +56,44 @@ public class JsfUser {
         return "index";
 
     }
+    
+   
+     
+    public String passValidator(){
+        CrudUser cr = new CrudUser();
+
+        if(!"".equals(cr.geraChave(getEmail()))){
+            setChave(cr.geraChave(getEmail()));
+            System.out.println(getChave());
+            // https://www.devmedia.com.br/enviando-email-com-javamail-utilizando-gmail/18034
+            return "mudarSenha";
+        }
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "EMAIL INEXISTENTE", ""));
+       return "";
+    }
+ 
+
+    
+    public boolean changePassword(){
+         CrudUser cr = new CrudUser();
+         String query;
+         int id;
+         String newPass;
+         id = cr.getIdByEmail(getEmail());
+         newPass = getPassword();
+         
+         if(id == -1){ // não encontrou usuário
+             return false;
+         }
+         if("".equals(newPass)){
+             return false;
+         }
+         String md5pass = new pdw.util.Util().getMd5(newPass).toUpperCase();
+
+         query = "UPDATE swuser SET password = "+md5pass+" WHERE id = "+id+"";
+
+        return true;
+     }
 
     public List<User> getAll() {
         return new CrudUser().getAll();
@@ -88,6 +128,14 @@ public class JsfUser {
         this.email = email;
     }
 
+    public String getChave(){
+        return chave;
+    }
+
+    public void setChave(String chave){
+        this.chave = chave;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -95,5 +143,9 @@ public class JsfUser {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+
+
+
 
 }

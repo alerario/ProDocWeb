@@ -33,5 +33,13 @@
             <from-outcome>mainmenu</from-outcome>
             <to-view-id>/rules/private/index.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>recSenha</from-outcome>
+            <to-view-id>/rules/public/esqueci-senha.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>mudarSenha</from-outcome>
+            <to-view-id>/rules/public/mudar-senha.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>
