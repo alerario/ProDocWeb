@@ -34,10 +34,11 @@ public class JsfAuth implements Serializable {
     private String login;
     private String password;
     private Organization selectedOrganization; //utilize esta classe para manter a organizacao e o processo selecionado
+    private pdw.data.model.Process selectedProcess;
 
     @Inject
     private JsfApp jsfApp;
-    
+
     public String authenticate() {
         jsfApp.verify(); //verifica se ha um admim
         user = new pdw.data.crud.CrudUser().getAuth(login, password);
@@ -85,11 +86,29 @@ public class JsfAuth implements Serializable {
     }
 
     public Organization getSelectedOrganization() {
+        // return para o metodo em producao
         return selectedOrganization;
+
+        //return para o metodo em desenvolvimento
+        //verifique qual o id da organizacao no banco de dados;
+        // return new pdw.data.crud.CrudOrganization().find(1);
     }
 
     public void setSelectedOrganization(Organization selectedOrganization) {
         this.selectedOrganization = selectedOrganization;
+    }
+
+    public pdw.data.model.Process getSelectedProcess() {
+        //return para o software em desenvolvimento
+        // verifique qual o id do processo no banco de dados
+        //  return new pdw.data.crud.CrudProcess().find(3); 
+
+        //return para o sw em producao
+        return selectedProcess;
+    }
+
+    public void setSelectedProcess(pdw.data.model.Process selectedProcess) {
+        this.selectedProcess = selectedProcess;
     }
 
 }
