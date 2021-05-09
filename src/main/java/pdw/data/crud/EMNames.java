@@ -25,7 +25,7 @@ public class EMNames implements java.io.Serializable {
             properties.put("javax.persistence.jdbc.url", "jdbc:postgresql://localhost:5432/pdwdb");
             properties.put("javax.persistence.jdbc.user", "postgres");
             properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
-            properties.put("javax.persistence.jdbc.password", "postgres");
+            properties.put("javax.persistence.jdbc.password", "root");
         } else { //se a variavel de ambiente foi criada, indica que o projeto está alocado no heroku
             //     properties.put("javax.persistence.jdbc.url", "jdbc:postgresql://ec2-184-73-202-79.compute-1.amazonaws.com:5432/d27dm10t2iscbc?sslmode=require");
             //     properties.put("javax.persistence.jdbc.user", "okdvfyabceaqmz");

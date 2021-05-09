@@ -8,6 +8,7 @@ package pdw.jsf;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -87,11 +88,11 @@ public class JsfAuth implements Serializable {
 
     public Organization getSelectedOrganization() {
         // return para o metodo em producao
-        return selectedOrganization;
+        //return selectedOrganization;
 
         //return para o metodo em desenvolvimento
         //verifique qual o id da organizacao no banco de dados;
-        // return new pdw.data.crud.CrudOrganization().find(1);
+        return new pdw.data.crud.CrudOrganization().find(1);
     }
 
     public void setSelectedOrganization(Organization selectedOrganization) {
@@ -109,6 +110,12 @@ public class JsfAuth implements Serializable {
 
     public void setSelectedProcess(pdw.data.model.Process selectedProcess) {
         this.selectedProcess = selectedProcess;
+    }
+    
+    public boolean isOrganizationAdmin(){
+        Organization organization = getSelectedOrganization();
+        User u = getUser();
+        return organization != null && u != null && Objects.equals(organization.getAdmin().getId(), u.getId());
     }
 
 }
