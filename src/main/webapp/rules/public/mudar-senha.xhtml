@@ -18,9 +18,19 @@
                     <p:outputLabel value="Trocar Senha" />
                 </f:facet>
 
-                <p:outputLabel value="Nova Senha" />
+                
+                <p:outputLabel value="Email" />
+                <p:inputText id="email" value="#{jsfUser.segurancaEmail}"> 
+                </p:inputText>
+
+                <p:outputLabel value="Chave (enviado no seu email):" />
+                <p:inputText id="text" value="#{jsfUser.chaveCampo}"> 
+                </p:inputText>
+
+                <p:outputLabel value="Nova senha:" />
                 <p:inputText id="password" value="#{jsfUser.password}"> 
                 </p:inputText>
+
 
                 <f:facet name="footer">
                     <p:commandButton value="Trocar Senha" action="#{jsfUser.changePassword()}" icon="pi pi-plus"/>

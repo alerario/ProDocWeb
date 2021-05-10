@@ -45,6 +45,17 @@ public class CrudUser extends AbstractCrud<pdw.data.model.User> {
         }
         
      }
+
+     public void changePass(String newPass, String user_email){
+         try {
+            User user = (User) getEntityManager().createNamedQuery("User.findByEmail").setParameter("email", user_email).getSingleResult();
+                user.setPassword(newPass);
+                this.persist(user);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+     }
       
     
       
