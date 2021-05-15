@@ -47,6 +47,7 @@
                             <p:submenu label="Users" icon="pi pi-fw pi-users">
                                 <p:menuitem value="List" icon="pi pi-fw pi-list" url="#"/>
                                 <p:menuitem value="Invite" icon="pi pi-fw pi-id-card" url="#"/>
+                                <p:menuitem value="Remove" icon="pi pi-fw pi-user-minus" url="#{application.contextPath}/faces/rules/private/crudOrganization/users/rUserRemove.xhtml" rendered="#{jsfAuth.organizationAdmin}"/>
                             </p:submenu>
                             <p:divider />                       
                             <p:menuitem value="Select" icon="pi pi-fw pi-play" url="#"/>
