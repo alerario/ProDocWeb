@@ -12,7 +12,7 @@ import pdw.data.model.Process;
 /**
  *
  * @author InfinitePondera
- */
+ **/
 public class CrudProcess extends AbstractCrud<pdw.data.model.Process> {
 
     private EntityManager em;

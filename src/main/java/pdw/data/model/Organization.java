@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlTransient;;
 
 /**
  *
@@ -58,11 +58,13 @@ public class Organization implements Serializable {
     @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
+
     @JoinTable(name = "swuserorganization", joinColumns = {
             @JoinColumn(name = "organization", referencedColumnName = "id") }, inverseJoinColumns = {
                     @JoinColumn(name = "swuser", referencedColumnName = "id") })
     @ManyToMany
     private Collection<User> userCollection;
+
     @JoinColumn(name = "admin", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User admin;
@@ -121,6 +123,11 @@ public class Organization implements Serializable {
 
     public void setUserCollection(Collection<User> userCollection) {
         this.userCollection = userCollection;
+    }
+
+    public void removeUser(User user) {
+        this.userCollection.removeIf(u -> u.getId().equals(user.getId()));
+        new pdw.data.crud.CrudOrganization().merge(this);
     }
 
     public User getAdmin() {
