@@ -1,15 +1,26 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pdw.data.crud;
 
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import pdw.data.model.User;
+import pdw.data.model.Images;
+import pdw.data.model.Organization;
 
-public class CrudImagem extends AbstractCrud<pdw.data.model.img> {
+/**
+ *
+ * @author tiago
+ */
+public class CrudImagem extends AbstractCrud<pdw.data.model.Images> {
 
     private EntityManager em;
 
     public CrudImagem() {
-        super(pdw.data.model.User.class);
+        super(pdw.data.model.Images.class);
     }
 
     @Override
@@ -19,29 +30,11 @@ public class CrudImagem extends AbstractCrud<pdw.data.model.img> {
         }
         return em;
     }
+
+    @Override
+    public Exception persist(Images entity) {
+         return super.persist(entity);
+     }
+  
 }
 
-public static void main(String[] args) {
-
-    File f =  new File("test.jpg");
-        String encodstring = encodeFileToBase64Binary(f);
-        System.out.println(encodstring);
-}
-
-private static String encodeFileToBase64Binary(File file){
-    String encodedfile = null;
-    try {
-        FileInputStream fileInputStreamReader = new FileInputStream(file);
-        byte[] bytes = new byte[(int)file.length()];
-        fileInputStreamReader.read(bytes);
-        encodedfile = Base64.encodeBase64(bytes).toString();
-    } catch (FileNotFoundException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
-
-    return encodedfile;
-}
