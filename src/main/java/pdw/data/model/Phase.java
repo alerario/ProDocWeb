@@ -90,10 +90,10 @@ public class Phase implements Serializable {
         this.id = id;
     }
 
-    public Phase(Integer id, Date created, Date updated) {
+    public Phase(Integer id, String name, String description) {
         this.id = id;
-        this.created = created;
-        this.updated = updated;
+        this.name = name;
+        this.description = description;
     }
 
     public Integer getId() {

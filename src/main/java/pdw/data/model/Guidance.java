@@ -59,8 +59,10 @@ public class Guidance implements Serializable {
     public Guidance() {
     }
 
-    public Guidance(Integer id) {
+    public Guidance(Integer id, String name, String description) {
         this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
     public Integer getId() {
