@@ -49,7 +49,7 @@ public class JsfPhase {
         Phase phase = new Phase();
         phase.setName(nome);
         phase.setDescription(descricao);
-        phase.setAdmin(jsfAuth.getUser());
+        // phase.setAdmin(jsfAuth.getUser());
         if (new pdw.data.crud.CrudPhase().persist(phase) == null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Sucesso"));
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
@@ -78,7 +78,7 @@ public class JsfPhase {
         Phase phase = new CrudPhase().find(id);
         phase.setName(nome);
         phase.setDescription(descricao);
-        phase.setAdmin(jsfAuth.getUser());
+        // phase.setAdmin(jsfAuth.getUser());
         if (new pdw.data.crud.CrudPhase().merge(phase) == null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Sucesso"));
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
