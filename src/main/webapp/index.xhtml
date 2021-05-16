@@ -7,9 +7,9 @@
     </h:head>
     <h:body>
         <h2>Bem vindo ao Process Document Builder - Versão Web</h2>
-        <h:link outcome="/rules/public/cadmin/createAdmin.xhtml" rendered="#{!jsfUser.admin}" >Cadastrar Administrador do Sistema </h:link>
+        <h:link outcome="/rules/public/cadmin/createAdmin.xhtml" rendered="#{!jsfApp.hasadmin}" >Cadastrar Administrador do Sistema </h:link>
         <br/>
-        <h:link outcome="rules/public/login.xhtml" rendered="#{jsfUser.admin}" >Efetuar login </h:link> <br/>
+        <h:link outcome="rules/public/login.xhtml" rendered="#{jsfApp.hasadmin}" >Efetuar login </h:link> <br/>
          <h:link outcome="" >Cadastre-se aqui </h:link>
     </h:body>
 </html>

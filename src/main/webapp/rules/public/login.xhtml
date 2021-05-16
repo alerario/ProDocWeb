@@ -13,7 +13,7 @@
         </p:messages>
         <h:form>
             <div align="center" >
-                <p:panelGrid columns="2"  rendered="#{jsfUser.admin}">
+                <p:panelGrid columns="2"  rendered="#{jsfApp.hasadmin}">
                     <f:facet name="header">
                         <p:outputLabel value="Efetue Login" />
                     </f:facet>
@@ -24,6 +24,8 @@
                     <f:facet name="footer">
                         <div align="center">
                             <p:commandButton value="Acessar"  icon="pi pi-sign-in" iconPos="right" action="#{jsfAuth.authenticate()}"/>
+                            <br/><br/>
+                            <h4 class="ui-button-warning pi pi-replay"> Esqueceu a senha? <a href="esqueci-senha.xhtml">Recuperar</a>. </h4>
                         </div>
                     </f:facet>
                 </p:panelGrid>

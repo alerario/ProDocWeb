@@ -5,8 +5,12 @@
  */
 package pdw.data.crud;
 
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import static org.eclipse.persistence.expressions.ExpressionOperator.toUpperCase;
 import pdw.data.model.User;
 
 /**
@@ -28,12 +32,53 @@ public class CrudUser extends AbstractCrud<pdw.data.model.User> {
         }
         return em;
     }
+    
+
+    
+      public int getIdByEmail(String user_email) { // 21.04.2021
+        try {
+            User user = (User) getEntityManager().createNamedQuery("User.findByEmail").setParameter("email", user_email).getSingleResult();
+                return user.getId();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+        
+     }
+
+     public void changePass(String newPass, String user_email){
+         try {
+            User user = (User) getEntityManager().createNamedQuery("User.findByEmail").setParameter("email", user_email).getSingleResult();
+                user.setPassword(newPass);
+                this.persist(user);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+     }
+      
+    
+      
+     public String geraChave(String email){
+       
+         String chave;
+         String codigo;
+        
+         if(getIdByEmail(email) == -1){
+             return "";
+         }
+         User user = (User) getEntityManager().createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
+        
+         codigo =  new pdw.util.Util().getMd5(user.getPassword()+user.getId()).toUpperCase();
+         chave = codigo;
+         return chave;
+     }
 
     // os metodos abaixo sao opcionais
     public User getAuth(String user_email, String password) {
         try {
             User user = (User) getEntityManager().createNamedQuery("User.findByEmail").setParameter("email", user_email).getSingleResult();
-            String md5pass = new pdw.util.Util().getMd5(password);
+            String md5pass = new pdw.util.Util().getMd5(password).toUpperCase();
             if (user.getPassword().toUpperCase().equals(md5pass)) {
                 return user;
             } else {
@@ -45,14 +90,25 @@ public class CrudUser extends AbstractCrud<pdw.data.model.User> {
         }
         return null;
     }
+    
+
+
 
     //sobrescrever persist para gravar a md5 da senha
     @Override
      public Exception persist(User entity) {
          entity.setPassword(new pdw.util.Util().getMd5(entity.getPassword()));
+         entity.setCreated(new Date());
          return super.persist(entity);
      }
    
+     //retornar o usuario administrador
+     public User getAdmin(){
+        List<User> users = new CrudUser().getAll();
+        User admin = users.stream().min(Comparator.comparing(User::getId)).orElse(null);
+        return admin;
+    }
+    
      /*
      algumas chaves para testar
     

@@ -7,22 +7,28 @@ package pdw.data.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlTransient;;
 
 /**
  *
@@ -34,13 +40,15 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Organization.findAll", query = "SELECT o FROM Organization o"),
     @NamedQuery(name = "Organization.findById", query = "SELECT o FROM Organization o WHERE o.id = :id"),
-    @NamedQuery(name = "Organization.findByName", query = "SELECT o FROM Organization o WHERE o.name = :name")})
+    @NamedQuery(name = "Organization.findByName", query = "SELECT o FROM Organization o WHERE o.name = :name"),
+    @NamedQuery(name = "Organization.findByDescription", query = "SELECT o FROM Organization o WHERE o.description = :description"),
+    @NamedQuery(name = "Organization.findByCreated", query = "SELECT o FROM Organization o WHERE o.created = :created")})
 public class Organization implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //
+    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
@@ -48,17 +56,27 @@ public class Organization implements Serializable {
     @Size(min = 1, max = 80)
     @Column(name = "name")
     private String name;
-    
-    @Basic(optional = true)
-    @Size(min = 1, max = 500)
+    @Size(max = 500)
     @Column(name = "description")
     private String description;
+    @Basic(optional = true)
+    //@NotNull
+    @Column(name = "created")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
     
-    @ManyToMany(mappedBy = "organizationCollection")
+    @JoinTable(name = "swuserorganization", joinColumns = {
+        @JoinColumn(name = "organization", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "swuser", referencedColumnName = "id")}
+    )
+    @ManyToMany
     private Collection<User> userCollection;
+    
     @JoinColumn(name = "admin", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User admin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization")
+    private Collection<Process> processCollection;
 
     public Organization() {
     }
@@ -67,9 +85,10 @@ public class Organization implements Serializable {
         this.id = id;
     }
 
-    public Organization(Integer id, String name) {
+    public Organization(Integer id, String name, Date created) {
         this.id = id;
         this.name = name;
+        this.created = created;
     }
 
     public Integer getId() {
@@ -88,6 +107,22 @@ public class Organization implements Serializable {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     @XmlTransient
     public Collection<User> getUserCollection() {
         return userCollection;
@@ -95,6 +130,11 @@ public class Organization implements Serializable {
 
     public void setUserCollection(Collection<User> userCollection) {
         this.userCollection = userCollection;
+    }
+    
+    public void removeUser(User user) {
+        this.userCollection.removeIf(u -> u.getId().equals(user.getId()));
+        new pdw.data.crud.CrudOrganization().merge(this);
     }
 
     public User getAdmin() {
@@ -105,15 +145,15 @@ public class Organization implements Serializable {
         this.admin = admin;
     }
 
-    public String getDescription() {
-        return description;
+    @XmlTransient
+    public Collection<Process> getProcessCollection() {
+        return processCollection;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProcessCollection(Collection<Process> processCollection) {
+        this.processCollection = processCollection;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;

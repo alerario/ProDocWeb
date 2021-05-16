@@ -13,13 +13,13 @@
         </p:messages>
         <h:form>
             <div class="p-field">
-                <p:staticMessage severity="info" summary="Atenção" detail="Cadastre o administrador do sistema" style="width: 100%" rendered="#{!jsfUser.admin}"/>
-                <p:staticMessage severity="warn" summary="Atenção" detail="Administrador do sistema já cadastrado"  rendered="#{jsfUser.admin}"/>
-                <p:commandButton rendered="#{jsfUser.admin}" styleClass="ui-button-secondary"  value="Voltar" action="index"/>
+                <p:staticMessage severity="info" summary="Atenção" detail="Cadastre o administrador do sistema" style="width: 100%" rendered="#{!jsfApp.hasadmin}"/>
+                <p:staticMessage severity="warn" summary="Atenção" detail="Administrador do sistema já cadastrado"  rendered="#{jsfApp.hasadmin}"/>
+                <p:commandButton rendered="#{jsfApp.hasadmin}" styleClass="ui-button-secondary"  value="Voltar" action="index"/>
             
             </div>
 
-            <p:panelGrid columns="2" rendered="#{!jsfUser.admin}">
+            <p:panelGrid columns="2" rendered="#{!jsfApp.hasadmin}">
                 <f:facet name="header">
                     <p:outputLabel value="Criar Administrador" />
                 </f:facet>

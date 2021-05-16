@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import org.primefaces.model.FilterMeta;
 import pdw.data.crud.CrudOrganization;
 import pdw.data.model.Organization;
+import pdw.data.model.User;
 
 /**
  *
@@ -41,6 +42,7 @@ public class JsfOrganization {
     @Inject
     private JsfAuth jsfAuth;
 
+    @Inject JsfApp jsfApp;
     
     public String persist() {
         if(this.id!=0){
@@ -105,6 +107,21 @@ public class JsfOrganization {
     
     public Collection<Organization> getAll() {
         return new pdw.data.crud.CrudOrganization().getAll();
+    }
+    
+    public Collection<User> getUsers() {
+        Organization orgt = new CrudOrganization().find(id);
+        return orgt.getUserCollection();
+        //return jsfAuth.getSelectedOrganization().getUserCollection();
+    }
+    
+    public String removeUser(User user) {
+        
+        System.out.println("User: " + user);
+        
+        Organization orgt = new CrudOrganization().find(id);
+        orgt.removeUser(user);
+        return merge();
     }
 
     public int getId() {
