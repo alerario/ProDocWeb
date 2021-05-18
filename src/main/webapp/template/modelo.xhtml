@@ -1,119 +1,114 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="/resources/css/default.css"/>
-        <h:outputStylesheet name="/resources/css/cssLayout.css"/>
-        <title>Process Document - Web Edition</title>
-    </h:head>
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <h:outputStylesheet name="/resources/css/default.css" />
+    <h:outputStylesheet name="/resources/css/cssLayout.css" />
+    <title>Process Document - Web Edition</title>
+</h:head>
 
-    <h:body>
+<h:body>
 
-        <div id="top" class="top">
-            <ui:insert name="top">
-                <h:form>
-                    <p:growl id="messages"/>
+    <div id="top" class="top">
+        <ui:insert name="top">
+            <h:form>
+                <p:growl id="messages" />
 
-                    <!-- componente para confirmar logout no botao e no menu -->
-                    <p:confirmDialog widgetVar="confirm" message="Confirm Logout">
-                         <p:commandButton id="canbt" value="Cancel" onclick="PF('confirm').hide();" /> 
-                        <p:commandButton value="Confirm" oncomplete="PF('confirm').hide();"  action="#{jsfAuth.logout()}" />
-                       
-                    </p:confirmDialog>
+                <!-- componente para confirmar logout no botao e no menu -->
+                <p:confirmDialog widgetVar="confirm" message="Confirm Logout">
+                    <p:commandButton id="canbt" value="Cancel" onclick="PF('confirm').hide();" />
+                    <p:commandButton value="Confirm" oncomplete="PF('confirm').hide();" action="#{jsfAuth.logout()}" />
 
-                    <p:menubar>                     
-                        <p:submenu  icon="pi pi-user" styleClass="p-mr-2" label="Me" >
-                            <p:menuitem value="Account" icon="pi pi-fw pi-user-edit" url="#" />
-                            <p:menuitem value="Change password" icon="pi pi-fw pi-key" url="#"/>
-                            <p:divider />                       
-                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-out"  onclick="PF('confirm').show();"/>
-                        </p:submenu> 
-                        
-                        <p:submenu  icon="pi pi-users" styleClass="p-mr-2" label="Users" rendered="#{jsfApp.admin_id==jsfAuth.user.id}">
-                            <p:menuitem value="List" icon="pi pi-fw pi-list" url="#{application.contextPath}/faces/rules/private/crudUsers/rUsers.xhtml" />        
-                        </p:submenu> 
+                </p:confirmDialog>
 
-                        <p:submenu label="Organization" icon="pi pi-fw pi-globe">
-                            <p:menuitem value="Create New" icon="pi pi-fw pi-plus" url="#{application.contextPath}/faces/rules/private/crudOrganization/cOrganization.xhtml"/>
-                            <p:menuitem value="List" icon="pi pi-fw pi-list" url="#{application.contextPath}/faces/rules/private/crudOrganization/rOrganization.xhtml"/>
-                          
-                            <p:menuitem value="Join" icon="pi pi-fw pi-reply" url="#" rendered="false"/>
-                            <p:submenu label="Users" icon="pi pi-fw pi-users">
-                                <p:menuitem value="List" icon="pi pi-fw pi-list" url="#"/>
-                                <p:menuitem value="Invite" icon="pi pi-fw pi-id-card" url="#"/>
-                                <p:menuitem value="Remove" icon="pi pi-fw pi-user-minus" url="#{application.contextPath}/faces/rules/private/crudOrganization/users/rUserRemove.xhtml" rendered="#{jsfAuth.organizationAdmin}"/>
-                            </p:submenu>
-                            <p:divider />                       
-                            <p:menuitem value="Select" icon="pi pi-fw pi-play" url="#"/>
+                <p:menubar>
+                    <p:submenu icon="pi pi-user" styleClass="p-mr-2" label="Me">
+                        <p:menuitem value="Account" icon="pi pi-fw pi-user-edit" url="#" />
+                        <p:menuitem value="Change password" icon="pi pi-fw pi-key" url="#" />
+                        <p:divider />
+                        <p:menuitem value="Logout" icon="pi pi-fw pi-sign-out" onclick="PF('confirm').show();" />
+                    </p:submenu>
+
+                    <p:submenu icon="pi pi-users" styleClass="p-mr-2" label="Users" rendered="#{jsfApp.admin_id==jsfAuth.user.id}">
+                        <p:menuitem value="List" icon="pi pi-fw pi-list" url="#{application.contextPath}/faces/rules/private/crudUsers/rUsers.xhtml" />
+                    </p:submenu>
+
+                    <p:submenu label="Organization" icon="pi pi-fw pi-globe">
+                        <p:menuitem value="Create New" icon="pi pi-fw pi-plus" url="#{application.contextPath}/faces/rules/private/crudOrganization/cOrganization.xhtml" />
+                        <p:menuitem value="List" icon="pi pi-fw pi-list" url="#{application.contextPath}/faces/rules/private/crudOrganization/rOrganization.xhtml" />
+
+                        <p:menuitem value="Join" icon="pi pi-fw pi-reply" url="#" rendered="false" />
+                        <p:submenu label="Users" icon="pi pi-fw pi-users">
+                            <p:menuitem value="List" icon="pi pi-fw pi-list" url="#" />
+                            <p:menuitem value="Invite" icon="pi pi-fw pi-id-card" url="#" />
+                            <p:menuitem value="Remove" icon="pi pi-fw pi-user-minus" url="#{application.contextPath}/faces/rules/private/crudOrganization/users/rUserRemove.xhtml" rendered="#{jsfAuth.organizationAdmin}" />
                         </p:submenu>
+                        <p:divider />
+                        <p:menuitem value="Select" icon="pi pi-fw pi-play" url="#" />
+                    </p:submenu>
 
-                        <p:submenu label="Process" icon="pi pi-fw pi-file">
-                            <p:submenu label="New" icon="pi pi-fw pi-plus">
-                                <p:menuitem value="Empty process" icon="pi pi-fw pi-file" url="#"/>
-                                <p:menuitem value="From other" icon="pi pi-fw pi-copy" url="#"/>
-                            </p:submenu>
-                            <p:menuitem value="List" icon="pi pi-fw pi-list" url="#"/>
-                            <p:divider />
-                            <p:menuitem value="Select" icon="pi pi-fw pi-play" url="#"/>
+                    <p:submenu label="Process" icon="pi pi-fw pi-file">
+                        <p:submenu label="New" icon="pi pi-fw pi-plus">
+                            <p:menuitem value="Empty process" icon="pi pi-fw pi-file" url="#" />
+                            <p:menuitem value="From other" icon="pi pi-fw pi-copy" url="#" />
                         </p:submenu>
+                        <p:menuitem value="List" icon="pi pi-fw pi-list" url="#" />
+                        <p:divider />
+                        <p:menuitem value="Select" icon="pi pi-fw pi-play" url="#" />
+                    </p:submenu>
 
-                        <p:submenu label="Process Components" icon="pi pi-fw pi-pencil">
-                            <p:menuitem value="Roles" icon="pi pi-cog" url="#{application.contextPath}/faces/rules/private/crudRoles/crRoles.xhtml"/>
-                            <p:menuitem value="Phases" url="#" icon="pi pi-cog"/>
-                            <p:menuitem value="Activities" url="#" icon="pi pi-cog"/>
-                            <p:menuitem value="Artifacts" url="#" icon="pi pi-cog"/>
-                            <p:menuitem value="Templates" url="#" icon="pi pi-cog"/>
-                            <p:menuitem value="Guidances" url="#" icon="pi pi-cog"/>
-                            <p:menuitem value="Flow" url="#" icon="pi pi-cog"/>
-                        </p:submenu>
+                    <p:submenu label="Process Components" icon="pi pi-fw pi-pencil">
+                        <p:menuitem value="Roles" icon="pi pi-cog" url="#{application.contextPath}/faces/rules/private/crudRoles/crRoles.xhtml" />
+                        <p:menuitem value="Phases" url="#" icon="pi pi-cog" />
+                        <p:menuitem value="Activities" url="#" icon="pi pi-cog" />
+                        <p:menuitem value="Artifacts" url="#" icon="pi pi-cog" />
+                        <p:menuitem value="Templates" url="#{application.contextPath}/faces/rules/private/crudTemplates/crTemplates.xhtml" icon="pi pi-cog" />
+                        <p:menuitem value="Guidances" url="#" icon="pi pi-cog" />
+                        <p:menuitem value="Flow" url="#" icon="pi pi-cog" />
+                    </p:submenu>
 
-                        <p:submenu label="Build Doc" icon="pi pi-fw pi-play">
-                            <p:menuitem value="View" icon="pi pi-fw pi-search" url="#"/>
-                            <p:menuitem value="Export PDF" icon="pi pi-fw pi-file-pdf" url="#"/>
-                            <p:menuitem value="Export ZIP" icon="pi pi-fw pi-download" url="#"/>
-                            <p:divider />
-                            <p:menuitem value="Backup process" icon="pi pi-fw pi-download" url="#"/>
-                            <p:menuitem value="Restore process" icon="pi pi-fw pi-upload" url="#"/>                          
-                        </p:submenu>
-
-
-
-                        <f:facet name="options">
-                            <div class="ui-input-icon-left p-mr-2">
-
-                                &nbsp;&nbsp;
-                                <p:button id="selp" value="Selecione uma organizacao" styleClass="ui-button-warning ui-button-flat" />
-                                <p:tooltip for="selp" value="Selecione uma organizacao e processo para editar" position="right"/>
-
-                                <p:button  value="Nome do processo" styleClass="ui-button-success ui-button-flat" onclick="PF('dlg1').show()"/>
-                                <p:dialog header="Header" widgetVar="dlg1" minHeight="40" width="350" showEffect="fade">
-                                    <p class="p-m-0">Detalhes do processo selecionado  === Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                </p:dialog>
-                                &nbsp;&nbsp;
-                                <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" onclick="PF('confirm').show();" />                            
-                            </div>
-                        </f:facet>
+                    <p:submenu label="Build Doc" icon="pi pi-fw pi-play">
+                        <p:menuitem value="View" icon="pi pi-fw pi-search" url="#" />
+                        <p:menuitem value="Export PDF" icon="pi pi-fw pi-file-pdf" url="#" />
+                        <p:menuitem value="Export ZIP" icon="pi pi-fw pi-download" url="#" />
+                        <p:divider />
+                        <p:menuitem value="Backup process" icon="pi pi-fw pi-download" url="#" />
+                        <p:menuitem value="Restore process" icon="pi pi-fw pi-upload" url="#" />
+                    </p:submenu>
 
 
-                    </p:menubar>
-                </h:form>
 
-            </ui:insert>
-        </div>
+                    <f:facet name="options">
+                        <div class="ui-input-icon-left p-mr-2">
 
-        <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
+                            &nbsp;&nbsp;
+                            <p:button id="selp" value="Selecione uma organizacao" styleClass="ui-button-warning ui-button-flat" />
+                            <p:tooltip for="selp" value="Selecione uma organizacao e processo para editar" position="right" />
 
-    </h:body>
+                            <p:button value="Nome do processo" styleClass="ui-button-success ui-button-flat" onclick="PF('dlg1').show()" />
+                            <p:dialog header="Header" widgetVar="dlg1" minHeight="40" width="350" showEffect="fade">
+                                <p class="p-m-0">Detalhes do processo selecionado === Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                                    officia deserunt mollit anim id est laborum.</p>
+                            </p:dialog>
+                            &nbsp;&nbsp;
+                            <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" onclick="PF('confirm').show();" />
+                        </div>
+                    </f:facet>
+
+
+                </p:menubar>
+            </h:form>
+
+        </ui:insert>
+    </div>
+
+    <div id="content" class="center_content">
+        <ui:insert name="content">Content</ui:insert>
+    </div>
+
+</h:body>
 
 </html>
