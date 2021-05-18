@@ -6,6 +6,7 @@
 package pdw.data.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -139,6 +140,18 @@ public class Images implements Serializable {
     @Override
     public String toString() {
         return "pdw.data.model.Images[ id=" + id + " ]";
+    }
+
+    public void setAdmin(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Collection<User> getUserCollection() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void removeUser(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
