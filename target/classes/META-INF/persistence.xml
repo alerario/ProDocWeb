@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="pwdPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>pdw.data.model.User</class>
+    <class>pdw.data.model.Organization</class>
+    <class>pdw.data.model.ActivityArtifact</class>
+    <class>pdw.data.model.Phase</class>
+    <class>pdw.data.model.Images</class>
+    <class>pdw.data.model.Template</class>
+    <class>pdw.data.model.Process</class>
+    <class>pdw.data.model.Gateway</class>
+    <class>pdw.data.model.Sequence</class>
+    <class>pdw.data.model.Arctifact</class>
+    <class>pdw.data.model.UserProcess</class>
+    <class>pdw.data.model.Guidance</class>
+    <class>pdw.data.model.Activity</class>
+    <class>pdw.data.model.Role</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+  </persistence-unit>
+</persistence>

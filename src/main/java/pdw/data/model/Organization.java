@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pdw.data.model;
 
 import java.io.Serializable;
@@ -37,12 +32,11 @@ import javax.xml.bind.annotation.XmlTransient;;
 @Entity
 @Table(name = "sworganization")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Organization.findAll", query = "SELECT o FROM Organization o"),
-    @NamedQuery(name = "Organization.findById", query = "SELECT o FROM Organization o WHERE o.id = :id"),
-    @NamedQuery(name = "Organization.findByName", query = "SELECT o FROM Organization o WHERE o.name = :name"),
-    @NamedQuery(name = "Organization.findByDescription", query = "SELECT o FROM Organization o WHERE o.description = :description"),
-    @NamedQuery(name = "Organization.findByCreated", query = "SELECT o FROM Organization o WHERE o.created = :created")})
+@NamedQueries({ @NamedQuery(name = "Organization.findAll", query = "SELECT o FROM Organization o"),
+        @NamedQuery(name = "Organization.findById", query = "SELECT o FROM Organization o WHERE o.id = :id"),
+        @NamedQuery(name = "Organization.findByName", query = "SELECT o FROM Organization o WHERE o.name = :name"),
+        @NamedQuery(name = "Organization.findByDescription", query = "SELECT o FROM Organization o WHERE o.description = :description"),
+        @NamedQuery(name = "Organization.findByCreated", query = "SELECT o FROM Organization o WHERE o.created = :created") })
 public class Organization implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,18 +54,17 @@ public class Organization implements Serializable {
     @Column(name = "description")
     private String description;
     @Basic(optional = true)
-    //@NotNull
+    // @NotNull
     @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
-    
+
     @JoinTable(name = "swuserorganization", joinColumns = {
-        @JoinColumn(name = "organization", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "swuser", referencedColumnName = "id")}
-    )
+            @JoinColumn(name = "organization", referencedColumnName = "id") }, inverseJoinColumns = {
+                    @JoinColumn(name = "swuser", referencedColumnName = "id") })
     @ManyToMany
     private Collection<User> userCollection;
-    
+
     @JoinColumn(name = "admin", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User admin;
@@ -131,7 +124,7 @@ public class Organization implements Serializable {
     public void setUserCollection(Collection<User> userCollection) {
         this.userCollection = userCollection;
     }
-    
+
     public void removeUser(User user) {
         this.userCollection.removeIf(u -> u.getId().equals(user.getId()));
         new pdw.data.crud.CrudOrganization().merge(this);
@@ -178,5 +171,5 @@ public class Organization implements Serializable {
     public String toString() {
         return "pdw.data.model.Organization[ id=" + id + " ]";
     }
-    
+
 }
