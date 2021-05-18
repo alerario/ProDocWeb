@@ -22,7 +22,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author alera
+ * @author Alexandre L erario - xpsal
  */
 @Entity
 @Table(name = "swphase")
