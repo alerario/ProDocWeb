@@ -19,18 +19,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author alexandrelerario
+ * @author Alexandre L erario - xpsal
  */
 @Entity
 @Table(name = "swphase")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Phase.findAll", query = "SELECT p FROM Phase p"),
     @NamedQuery(name = "Phase.findById", query = "SELECT p FROM Phase p WHERE p.id = :id"),
@@ -45,14 +40,11 @@ public class Phase implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 50)
     @Column(name = "name")
     private String name;
-    @Size(max = 400)
     @Column(name = "description")
     private String description;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "execorder")
     private int execorder;
     @OneToMany(mappedBy = "swphase")
@@ -105,7 +97,6 @@ public class Phase implements Serializable {
         this.execorder = execorder;
     }
 
-    @XmlTransient
     public Collection<Activity> getActivityCollection() {
         return activityCollection;
     }

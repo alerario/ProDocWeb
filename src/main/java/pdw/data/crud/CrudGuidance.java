@@ -7,18 +7,18 @@ package pdw.data.crud;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import pdw.data.model.Process;
+import pdw.data.model.Guidance;
 
 /**
  *
- * @author InfinitePondera
- **/
-public class CrudProcess extends AbstractCrud<pdw.data.model.Process> {
+ * @author anama
+ */
+public class CrudGuidance extends AbstractCrud<pdw.data.model.Guidance> {
 
     private EntityManager em;
 
-    public CrudProcess() {
-        super(pdw.data.model.Process.class);
+    public CrudGuidance() {
+        super(pdw.data.model.Guidance.class);
     }
 
     @Override
@@ -27,11 +27,5 @@ public class CrudProcess extends AbstractCrud<pdw.data.model.Process> {
             em = Persistence.createEntityManagerFactory(EMNames.EMN1, EMNames.getEMN1Props()).createEntityManager();
         }
         return em;
-    }
-
-    @Override
-    public Exception persist(Process entity) {
-        return super.persist(entity);
-    }
-
+    } 
 }

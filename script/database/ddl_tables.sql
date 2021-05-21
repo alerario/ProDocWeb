@@ -243,4 +243,3 @@ CREATE TABLE public.swsequence
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
-

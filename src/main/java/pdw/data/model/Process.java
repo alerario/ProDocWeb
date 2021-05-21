@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author alexandrelerario
+ * @author InfinitePondera
  */
 @Entity
 @Table(name = "swprocess")
@@ -196,7 +196,6 @@ public class Process implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Process)) {
             return false;
         }

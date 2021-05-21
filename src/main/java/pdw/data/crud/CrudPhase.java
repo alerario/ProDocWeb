@@ -5,20 +5,21 @@
  */
 package pdw.data.crud;
 
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import pdw.data.model.Process;
+import pdw.data.model.Phase;
 
 /**
  *
- * @author InfinitePondera
- **/
-public class CrudProcess extends AbstractCrud<pdw.data.model.Process> {
+ * @author jm-marcel
+ */
+public class CrudPhase extends AbstractCrud<pdw.data.model.Phase> {
 
     private EntityManager em;
 
-    public CrudProcess() {
-        super(pdw.data.model.Process.class);
+    public CrudPhase() {
+        super(pdw.data.model.Phase.class);
     }
 
     @Override
@@ -30,8 +31,8 @@ public class CrudProcess extends AbstractCrud<pdw.data.model.Process> {
     }
 
     @Override
-    public Exception persist(Process entity) {
+    public Exception persist(Phase entity) {
         return super.persist(entity);
     }
-
+  
 }

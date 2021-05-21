@@ -5,7 +5,6 @@
  */
 package pdw.jsf;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.inject.Named;
@@ -51,8 +50,6 @@ public class JsfUser {
     private String chaveCampo;
     private String segurancaEmail;
 
-
-
     public String createAdmin() {
         User user = new User();
         user.setEmail(email);
@@ -62,145 +59,143 @@ public class JsfUser {
         CrudUser cruduser = new CrudUser();
         Collection c = cruduser.getAll();
         if (c == null || c.isEmpty()) {
-            //nao ha nenhum usuario cadastrado entao cadastramos o admin
+            // nao ha nenhum usuario cadastrado entao cadastramos o admin
             cruduser.persist(user);
-            jsfApp.verify(); //verifica a existencia de um admin
+            jsfApp.verify(); // verifica a existencia de um admin
         }
 
         return "index";
 
     }
-    
-   public void sendEmail(String chave){
-Properties props = new Properties();
-    /** Parâmetros de conexão com servidor Gmail */
-    props.put("mail.smtp.host", "smtp.gmail.com");
-    props.put("mail.smtp.socketFactory.port", "465");
-    props.put("mail.smtp.socketFactory.class",
-    "javax.net.ssl.SSLSocketFactory");
-    props.put("mail.smtp.auth", "true");
-    props.put("mail.smtp.port", "465");
 
-    Session session = Session.getDefaultInstance(props,
-      new javax.mail.Authenticator() {
-           protected PasswordAuthentication getPasswordAuthentication()
-           {
-                 return new PasswordAuthentication("trabalhosoftwareblabla@gmail.com",
-                 "oficina31");
-           }
-      });
+    public void sendEmail(String chave) {
+        Properties props = new Properties();
+        /** Parâmetros de conexão com servidor Gmail */
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
 
-    /** Ativa Debug para sessão */
-    session.setDebug(true);
+        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("trabalhosoftwareblabla@gmail.com", "oficina31");
+            }
+        });
 
-    try {
+        /** Ativa Debug para sessão */
+        session.setDebug(true);
 
-      Message message = new MimeMessage(session);
-      message.setFrom(new InternetAddress("trabalhosoftwareblabla@gmail.com"));
-      //Remetente
+        try {
 
-      Address[] toUser = InternetAddress //Destinatário(s)
-                 .parse(getEmail());
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("trabalhosoftwareblabla@gmail.com"));
+            // Remetente
 
-      message.setRecipients(Message.RecipientType.TO, toUser);
-      message.setSubject("Trocar senha ProdocWeb");//Assunto
-      message.setText("Aqui esta sua chave, cole no navegador: "+chave);//texto
-      /**Método para enviar a mensagem criada*/
-      Transport.send(message);
+            Address[] toUser = InternetAddress // Destinatário(s)
+                    .parse(getEmail());
 
-     } catch (MessagingException e) {
-        throw new RuntimeException(e);
+            message.setRecipients(Message.RecipientType.TO, toUser);
+            message.setSubject("Trocar senha ProdocWeb");// Assunto
+            message.setText("Aqui esta sua chave, cole no navegador: " + chave);// texto
+            /** Método para enviar a mensagem criada */
+            Transport.send(message);
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
-
-   }
-     
-    public String passValidator(){
+    public String passValidator() {
         CrudUser cr = new CrudUser();
 
-        if(!"".equals(cr.geraChave(getEmail()))){
+        if (!"".equals(cr.geraChave(getEmail()))) {
             setChave(cr.geraChave(getEmail()));
             sendEmail(getChave());
             return "mudarSenha";
         }
-       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "EMAIL INEXISTENTE", ""));
-       return "";
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "EMAIL INEXISTENTE", ""));
+        return "";
     }
- 
 
-    
-    public boolean changePassword(){
-         String query;
-         String newPass = getPassword();
-         CrudUser cr = new CrudUser();
+    public boolean changePassword() {
+        String query;
+        String newPass = getPassword();
+        CrudUser cr = new CrudUser();
 
-         if(!"".equals(cr.geraChave(getSegurancaEmail()))){
-             setChave(cr.geraChave(getSegurancaEmail()));
-         }
-         else{
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "EMAIL INEXISTENTE", ""));
-             return false;
-         }
+        if (!"".equals(cr.geraChave(getSegurancaEmail()))) {
+            setChave(cr.geraChave(getSegurancaEmail()));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "EMAIL INEXISTENTE", ""));
+            return false;
+        }
 
         // verifica se a chave digitada é igual a do email
-         if (!getChaveCampo().equals(getChave())){
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "CHAVE INVALIDA, VERIFIQUE SEU EMAIL.", ""));
-             System.out.println("Email digitado:"+getSegurancaEmail());
-             System.out.println("Chave enviada no email:"+getChave());
-             System.out.println("Chave Campo:"+getChaveCampo());
-             return true;
-         }
+        if (!getChaveCampo().equals(getChave())) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "CHAVE INVALIDA, VERIFIQUE SEU EMAIL.", ""));
+            System.out.println("Email digitado:" + getSegurancaEmail());
+            System.out.println("Chave enviada no email:" + getChave());
+            System.out.println("Chave Campo:" + getChaveCampo());
+            return true;
+        }
 
         // proteção
-          if("".equals(newPass)){
-              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SENHA NAO PODE SER NULA.", ""));
-             return true;
-          }
+        if ("".equals(newPass)) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "SENHA NAO PODE SER NULA.", ""));
+            return true;
+        }
 
-         // método para trocar a senha
-         //String md5pass = new pdw.util.Util().getMd5("123456").toUpperCase();
-         cr.changePass(newPass,getSegurancaEmail());
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SENHA TROCADA COM SUCESSO.", ""));
-         //query = "UPDATE swuser SET password = "+md5pass+" WHERE id = "+id+"";
+        // método para trocar a senha
+        // String md5pass = new pdw.util.Util().getMd5("123456").toUpperCase();
+        cr.changePass(newPass, getSegurancaEmail());
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "SENHA TROCADA COM SUCESSO.", ""));
+        // query = "UPDATE swuser SET password = "+md5pass+" WHERE id = "+id+"";
 
         return true;
-     }
+    }
 
     // public boolean changePassword(){
-    //      CrudUser cr = new CrudUser();
-    //      String query;
-    //      int id;
-    //      String newPass;
-    //      id = cr.getIdByEmail(getEmail());
-    //      newPass = getPassword();
-         
-    //      if(id == -1){ // não encontrou usuário
-    //          return false;
-    //      }
-    //      if("".equals(newPass)){
-    //          return false;
-    //      }
-    //      String md5pass = new pdw.util.Util().getMd5(newPass).toUpperCase();
+    // CrudUser cr = new CrudUser();
+    // String query;
+    // int id;
+    // String newPass;
+    // id = cr.getIdByEmail(getEmail());
+    // newPass = getPassword();
 
-    //      query = "UPDATE swuser SET password = "+md5pass+" WHERE id = "+id+"";
+    // if(id == -1){ // não encontrou usuário
+    // return false;
+    // }
+    // if("".equals(newPass)){
+    // return false;
+    // }
+    // String md5pass = new pdw.util.Util().getMd5(newPass).toUpperCase();
 
-    //     return true;
-    //  }
+    // query = "UPDATE swuser SET password = "+md5pass+" WHERE id = "+id+"";
+
+    // return true;
+    // }
 
     public List<User> getAll() {
         return new CrudUser().getAll();
     }
-   
 
     public void turnActive(User user) {
         if (jsfApp.getAdmin_id() != user.getId()) {
             user.setEnable(!user.getEnable());
 
             if (new CrudUser().merge(user) == null) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Estado modificado.", ""));
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Estado modificado.", ""));
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao modificar estado.", "Error"));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao modificar estado.", "Error"));
         }
     }
 
@@ -220,7 +215,7 @@ Properties props = new Properties();
         this.email = email;
     }
 
-   public String getSegurancaEmail() {
+    public String getSegurancaEmail() {
         return segurancaEmail;
     }
 
@@ -228,20 +223,19 @@ Properties props = new Properties();
         this.segurancaEmail = segurancaEmail;
     }
 
-
-    public String getChave(){
+    public String getChave() {
         return chave;
     }
 
-    public void setChave(String chave){
+    public void setChave(String chave) {
         this.chave = chave;
     }
 
-    public String getChaveCampo(){
+    public String getChaveCampo() {
         return chaveCampo;
     }
 
-    public void setChaveCampo(String chaveCampo){
+    public void setChaveCampo(String chaveCampo) {
         this.chaveCampo = chaveCampo;
     }
 
@@ -252,9 +246,5 @@ Properties props = new Properties();
     public void setPassword(String password) {
         this.password = password;
     }
-    
-
-
-
 
 }
