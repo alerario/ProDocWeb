@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<body>
+    <ui:composition template="./../../../template/modelo.xhtml">
+        <ui:define name="content">
+            <br/>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+            <p:accordionPanel widgetVar="basic" dynamic="true" cache="true" multiple="true" activeIndex="-1">
+                <p:tab title="Template form (add or edit)">
+                    <div align="center">
+                        <h:form id="form" enctype="multipart/form-data">
+                            <!--campo necessario para operacao de update-->
+                            <h:inputHidden value="#{jsfTemplate.id}" id="id" />
+                            <p:panelGrid columns="2" id='formulario'>
+                                <p:outputLabel value="ID" />
+                                <p:outputLabel value="#{jsfTemplate.id}" />
+
+                                <p:outputLabel value="Nome" />
+                                <p:inputText id="nome" value="#{jsfTemplate.nome}" required="true" requiredMessage="O template precisa de um nome" />
+
+                                <p:outputLabel value="descricao" />
+
+                                <p:panelGrid columns="1" id='formulario2'>
+                                    <p:inputTextarea value="#{jsfTemplate.descricao}" rows="5" cols="30" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" />
+                                    <h:outputText id="display" class="p-d-block" />
+                                </p:panelGrid>
+
+                                <h:outputLabel value="Template File" />
+                                <h:inputFile id="templatefile" value="#{jsfTemplate.arquivo}" required="true" requiredMessage="O template precisa receber um arquivo" />
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Save" style="margin-right: .5rem;" icon="pi pi-fw pi-save" action="#{jsfTemplate.persist()}">
+                                        <f:setPropertyActionListener value="#{jsfTemplate.id}" target="#{jsfTemplate.id}" />
+                                        <f:ajax execute="@form" render="@all" />
+                                    </p:commandButton>
+
+                                    <p:commandButton id="Clear" value="Clear and Add new" style="margin-right: .5rem;" update="formulario" process="@this" styleClass="p-mr-2 ui-button-outlined" icon="pi pi-fw pi pi-plus">
+                                        <p:resetInput target="formulario" />
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:panelGrid>
+                        </h:form>
+                    </div>
+                </p:tab>
+
+                <p:tab title="Templates">
+                    <!-- agora a tabela contendo a lista -->
+                    <div align="center">
+                        <h:form>
+                            <p:dataTable var="template" value="#{jsfTemplate.all}" widgetVar="customersTable" emptyMessage="No template found with given criteria" filteredValue="" rows="10" paginator="true" rowsPerPageTemplate="5,10,30,{ShowAll|'All'}">
+                                <f:facet name="header">
+                                    <div class="p-d-flex p-ai-center p-jc-between">
+                                        <div align="right">
+                                            <p:inputText id="globalFilter" onkeyup="PF('customersTable').filter()" style="width:10rem" placeholder="Enter keyword" />
+                                        </div>
+                                    </div>
+                                </f:facet>
+
+                                <p:column headerText="ID" sortBy="#{template.id}" filterBy="#{template.id}">
+                                    <p:outputLabel value="#{template.id}" />
+                                </p:column>
+
+                                <p:column headerText="Name" sortBy="#{template.name}" filterBy="#{template.name}">
+                                    <p:outputLabel value="#{template.name}" />
+                                </p:column>
+
+                                <p:column headerText="Description">
+                                    <p:outputLabel value="#{template.description}" />
+                                </p:column>
+
+                                <p:column headerText="Template File">
+                                    <h:outputLabel value="#{template.templatefile}" />
+                                </p:column>
+
+                                <p:column headerText="Edit" width="50px">
+                                    <p:commandButton icon="pi pi-pencil" styleClass="edit-button ui-button-success" action="#{jsfTemplate.edit(template)}" />
+                                </p:column>
+
+                                <p:column headerText="Delete" width="50px">
+                                    <p:commandButton class="ui-button-warning" icon="pi pi-trash" action="#{jsfTemplate.remove(template)}">
+                                        <p:confirm type="popup" header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+
+                            <p:confirmPopup global="true">
+                                <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat" />
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
+                            </p:confirmPopup>
+                        </h:form>
+                    </div>
+                </p:tab>
+            </p:accordionPanel>
+        </ui:define>
+    </ui:composition>
+</body>
+
+</html>
